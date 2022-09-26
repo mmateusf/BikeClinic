@@ -57,7 +57,8 @@ public class ServletTest extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+                System.out.println("Comunicación realizada con el Servlet test.");        
+                
     }
 
     /**

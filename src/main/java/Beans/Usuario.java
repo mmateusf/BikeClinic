@@ -5,7 +5,7 @@ package Beans;
  *
  * @author BMO
  */
-public abstract class Usuario extends Persona{
+public class Usuario extends Persona{
     private String estado;
     private String password;
     private String rol;
@@ -42,7 +42,18 @@ public abstract class Usuario extends Persona{
     }
 
     @Override
-    public abstract String toString();
+    public String toString() {
+        return "Administrador{" + 
+                " estado=" + this.isEstado() + 
+                ", password=" + this.getPassword() + 
+                ", rol=" + this.getRol() + 
+                ", nombre=" + super.getNombre() + 
+                ", primerApellido=" + super.getPrimerApellido() + 
+                ", segundoApellido=" + super.getSegundoApellido() + 
+                ", correo=" + super.getCorreo() + 
+                ", numeroContacto=" + super.getNumeroContacto()+ 
+                '}' ;
+    }
     
     
 }

@@ -1,0 +1,27 @@
+
+/* 
+    Created on : 24 sept. 2022, 19:17:46
+    Author     : BMO
+*/
+
+body {
+    background: #e2d73b;
+    background: linear-gradient(to right, #7c7c07, #fbf30d);
+}
+.logo{
+    background-image: url(../img/moto.jpg);
+    background-position: center center;
+    border-radius: 20px;
+    box-shadow: 5px 4px 5px black
+}
+.bg {
+    background-image: url(../img/fondo.jpg);
+    background-position: center center;
+
+    border-radius: 50px;
+}
+
+footer {
+    text-align: center;
+}
+
