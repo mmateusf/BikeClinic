@@ -1,0 +1,65 @@
+//Validar el ingreso.
+var correo = new URL(location.href).searchParams.get("correo");
+var user;
+
+//Para llamar métodos. 
+$(document).ready(function () {
+
+//    $(function () {
+//        $('[')
+//    })
+//});
+
+getUsuario().then(function () {
+//    $("#user-name").attr("href", "profile.html?username=" + correo);
+    $("#user-name").html(user.nombre);
+    tableMecanicos();
+});
+});
+
+async function getUsuario() {
+
+    await $.ajax({
+    type:"GET",
+            dataType:"html",
+            url:"../ServletMecanicosListar",
+            data: $.param({
+            correo: correo
+            }),
+            success: function(result){
+            let parsedResult = JSON.parse(result);
+                    if (parsedResult !== false){
+            user = parsedResult;
+            } else{
+            console.log("Error recuperando los datos del usuario.");
+            }
+            }
+    });
+};
+
+
+
+
+
+//estado, password, rol, id, nombre, primerApellido, segundoApellido, correo, numeroContacto
+//    function tableMecanicos(){
+//
+//    $.ajax({
+//        type: "GET",
+//        dataType: "html",
+//        url: "../ServletMecanicosListar",
+//        data: $.param({
+//            correo: correo,
+//            password: password
+//        }),
+//        success: function (result) {
+//            let parsedResult = JSON.parse(result);
+//            if (parsedResult !== false) {
+//                mostrarMecanicos(parseResult);
+//            } else {
+//                console.log("Error recuperando los mecánicos");
+//            }
+//        }
+//    });
+//}
+//};

@@ -12,14 +12,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../JS/login.js"></script>
-    <link rel="stylesheet" href="../CSS/Login.css">
-    <style>
-        .footer{
-            
-        }
-    </style>
+    <script src="./JS/login.js"></script>
+    <link rel="stylesheet" href="./CSS/Login.css"/>
     
+
     <head>
 
     <body>
@@ -45,7 +41,7 @@
                     <div class="col">
                         <!--Logo y titulo-->
                         <div class="text-center bg-background-size: cover rounded">
-                            <img class="logo"  src="../img/moto.jpg" width="100" alt="banco muestra">
+                            <img class="logo"  src="./img/moto.jpg" width="100" alt="banco muestra">
                         </div>
                         <h1 class="fw-bold text-center pt-2 mb-2">Bike Clinic</h1>
                         <h2 class="fw-bold text-center pt-2 mb-5">Bienvenido</h2>
@@ -66,13 +62,13 @@
                                 <input id="password" type="password" class="form-control mb-3" name="password"
                                        placeholder="Ingrese su contraseña" required>
                             </div>
-                            
-<!--                            Chequeos-->
-                            
-<!--                            <div class="mb-1">
-                                <input type="checkbox" class="form-check-input" name="connected" id="checkMantain">
-                                <label for="connected" class="form-check-label">Mantenerme conectado</label>
--->                            </div>
+
+                            <!--                            Chequeos-->
+
+<!--                   <div class="mb-1">
+                            <input type="checkbox" class="form-check-input" name="connected" id="checkMantain">
+                            <label for="connected" class="form-check-label">Mantenerme conectado</label>
+                        </div>-->
                             <div class="mb-4">
                                 <input type="checkbox" class="form-check-input" name="rol" id="checkMec">
                                 <label for="rol" class="form-check-label">Conectarse como mecánico</label>
@@ -84,62 +80,59 @@
                             <!--Login error alert message-->
                             <div id="login-error" class="alert alert-danger d-none" role="alert">Usuario o contraseña incorrectos.</div>
                             <div class="my-2 text-center">
-                                <span><a  href="#contactLogin" data-bs-toggle="offcanvas">Recuperar contraseña.</a></span>
+                                <span><a  href="#contactLogin" data-bs-toggle="offcanvas">Recuperar contraseña.</a></span></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--OffCanva para realizar contacto.-->
+
+
+            <div class="offcanvas offcanvas-start " tabindex="-1" id="contactLogin"
+                 aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Contacto.</h5>
+                    <!-- Para cerrar -->
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div>
+                        Por favor registre los datos solicitados para poder resolver su incoveniente de la
+                        manera más pronta. <br> Gracias.
+                    </div>
+                    <div class="container m-1">
+                        <form action="#btnContact" method="post">
+                            <label for="nameContact" class="form-label mt-3 mb-2">Ingrese su nombre</label>
+                            <input type="text" class=" form-control mb-2" name="nameContact"
+                                   id="nameContact" placeholder="Su nombre completo" required>
+                            <label for="idContact" class="form-label mb-2">Ingrese su número de
+                                identificación</label>
+                            <input type="number" class=" form-control mb-2" name="idContact" id="idContact"
+                                   placeholder="Sin puntos o espacios" required>
+                            <label for="textContact">Describa el motivo</label>
+
+                            <textarea type="textarea" class=" form-control mb-2" name="textContact"
+                                      id="nameContact" required></textarea>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block mt-2"
+                                        id="btnContact">Enviar</button>
                             </div>
 
                         </form>
 
                     </div>
-
                 </div>
             </div>
-        </div>
-        <!--OffCanva para realizar contacto.-->
 
 
-        <div class="offcanvas offcanvas-start " tabindex="-1" id="contactLogin"
-             aria-labelledby="offcanvasExampleLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Contacto.</h5>
-                <!-- Para cerrar -->
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <div>
-                    Por favor registre los datos solicitados para poder resolver su incoveniente de la
-                    manera más pronta. <br> Gracias.
+            <footer class="footer bg-light mt-4 fixed-bottom">
+                <div >
+                    <a href="#" class="btn btn-light">&copy;Bike Clinic App</a>
                 </div>
-                <div class="container m-1">
-                    <form action="#btnContact" method="post">
-                        <label for="nameContact" class="form-label mt-3 mb-2">Ingrese su nombre</label>
-                        <input type="text" class=" form-control mb-2" name="nameContact"
-                               id="nameContact" placeholder="Su nombre completo" required>
-                        <label for="idContact" class="form-label mb-2">Ingrese su número de
-                            identificación</label>
-                        <input type="number" class=" form-control mb-2" name="idContact" id="idContact"
-                               placeholder="Sin puntos o espacios" required>
-                        <label for="textContact">Describa el motivo</label>
-
-                        <textarea type="textarea" class=" form-control mb-2" name="textContact"
-                                  id="nameContact" required></textarea>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block mt-2"
-                                    id="btnContact">Enviar</button>
-                        </div>
-
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
-
-        <footer class="footer bg-light mt-4 ">
-            <div >
-                <a href="#" class="btn btn-light">&copy;Bike Clinic App</a>
-            </div>
-        </footer>
+            </footer>
 
 
     </body>

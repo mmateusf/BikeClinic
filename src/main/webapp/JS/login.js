@@ -12,7 +12,7 @@ function autenticarUsuario(){
     $.ajax({
         type:"GET",
         dataType:"html",
-        url:"../ServletUsuarioLogin",
+        url:"./ServletUsuarioLogin",
         data: $.param({
             correo: correo,
             password: password
