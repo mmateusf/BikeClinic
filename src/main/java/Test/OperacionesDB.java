@@ -4,6 +4,7 @@ package Test;
 
 import Beans.*;
 import Connection.DBConnection;
+import Controller.UsuarioController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,12 +19,14 @@ public class OperacionesDB {
     public static void main(String[] args) {
         
         //Correcta con el tema del servidor al inicio.
-        conectarse();
+//        conectarse();s
         //seteo de datos con Upcasting
-        pruebaBeans();
+        /*pruebaBeans();
         actualizarAdminstrador(1116547319, "Activo");
         listarEstado(4);
-        ordenes();
+        ordenes();*/
+        UsuarioController usuario = new UsuarioController();
+        System.out.println(usuario.listarMecanicos());
     }
     
     public static void verHV(){
