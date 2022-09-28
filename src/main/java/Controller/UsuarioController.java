@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioController implements IUsuarioController {
 
@@ -61,8 +63,8 @@ public class UsuarioController implements IUsuarioController {
 //          Se crea objeto y se vuelve json.
             Usuario usuario = new Usuario(estado, password, rol, id, nombre, primerApellido, segundoApellido, correo, numeroContacto);
             st.close();
-            System.out.println("Se realizó la consulta" + usuario);
-            //no sé bien pa qué.
+            System.out.println("Se realizó la consulta de actualizaciónen: " + usuario);
+            //Regregar el objeto de Json
             return gson.toJson(usuario);
 
         } catch (SQLException e) {
@@ -73,5 +75,49 @@ public class UsuarioController implements IUsuarioController {
 
         return "false";
     }
-    
+
+    @Override
+    public String listarMecanicos() {
+
+        //Para los Json
+        Gson gson = new Gson();
+        DBConnection conn = new DBConnection();
+        String sql = "SELECT * FROM usuarios WHERE rol='Mecánico'";
+        
+        //Para no llamar la contraseña
+//        String password = null;
+        List<String> listaMecanicos = new ArrayList<String>();
+        try {
+            Statement st = conn.conectar().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            //List para guardar objeticos :D
+            
+            
+            while (rs.next()) {
+                int id = rs.getInt("idUsuario");
+                String nombre = rs.getString("nombre");
+                String primerApellido = rs.getString("primerApellido");
+                String segundoApellido = rs.getString("segundooApellido");
+                String numeroContacto = rs.getString("numeroContacto");
+                String estado = rs.getString("estado");
+                String password = rs.getString("password");
+                String rol = rs.getString("rol");
+                String correo = rs.getString("correo");
+                
+//                Se crea objeto y se vuelve json.
+                Usuario usuario = new Usuario(estado, password, rol, id, nombre, primerApellido, segundoApellido, correo, numeroContacto);
+                
+                //Para agregarle
+                listaMecanicos.add(gson.toJson(usuario));
+                
+            }
+        } catch (SQLException e) {
+            System.out.println("No se pudo conectar con la BD en listar mecánicos " + e.getMessage());
+        } finally {
+            conn.desconectar();
+        }
+
+        return gson.toJson(listaMecanicos);
+    }
+
 }
