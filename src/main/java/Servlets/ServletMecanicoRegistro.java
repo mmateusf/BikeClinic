@@ -22,12 +22,12 @@ public class ServletMecanicoRegistro extends HttpServlet {
     public ServletMecanicoRegistro() {
         super();
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UsuarioController usuario = new UsuarioController();
-
+               
         int id = Integer.parseInt(request.getParameter("idUsuario"));
         String nombre = request.getParameter("nombre");
         String primerApellido = request.getParameter("primerApellido");
@@ -37,7 +37,7 @@ public class ServletMecanicoRegistro extends HttpServlet {
         String correo = request.getParameter("correo");
         String password = request.getParameter("password");
         String numeroContacto = request.getParameter("numeroContacto");
-
+         
         //Guardar el resultado
         String result = usuario.registerMecanico(id, nombre, primerApellido, segundoApellido, estado, rol, correo, password, numeroContacto);
 

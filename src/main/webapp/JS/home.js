@@ -1,21 +1,42 @@
 //Para llamar métodos. 
 $(document).ready(function () {
-    
-    tablaMecanicos();
+
+    obtenerListaMecanicos()
 });
 
-function tablaMecanicos(){
+
+function obtenerListaMecanicos() {
+
     $.ajax({
-        type:"GET",
-        dataType:"html",
-        url:"./ServletMecanicosListar",
-        success: function(result){
+        type: "GET",
+        dataType: "html",
+        url: "./ServletMecanicosListar",
+        success: function (result) {
             let parsedResult = JSON.parse(result);
-            var tabla;
-            for (let i = 0; i < parsedResult.length; i++) {
-                tabla += '<tr><td>' + parsedResult[i].estado + '</td><td>' + parsedResult[i].password + '</td><td>' + parsedResult[i].rol + '</td><td>' + parsedResult[i].id + '</td><td>' + parsedResult[i].nombre + '</td><td>' + parsedResult[i].primerApellido + '</td><td>'  + parsedResult[i].segundoApellido + '</td><td>'  + parsedResult[i].correo + '</td><td>'  + parsedResult[i].numeroContacto + '</td></tr>';
+            if (parsedResult !== false) {
+                mostrarMecanicos(parsedResult);
+            } else {
+                console.log("Hubo un problema al llamar los datos de lista mecánicos");
             }
-            $('#tbody').html(tabla);
         }
     });
 }
+
+function mostrarMecanicos(listaMecanicos) {
+
+    let tabla = "";
+    $.each(listaMecanicos, function (index, mecanico) {
+
+        mecanico = JSON.parse(mecanico);
+        tabla += '<tr>' +
+                '<td>' + mecanico.id + '</td>' +
+                '<td>' + mecanico.nombre + ' ' + mecanico.primerApellido + ' ' + mecanico.segundoApellido + '</td>' +
+                '<td>' + mecanico.correo + '</td>' +
+                '<td>' + mecanico.numeroContacto + '</td>' +
+                '<td>' + mecanico.estado + '</td>' +
+                '</tr>';
+    });
+    $('#tbody').html(tabla);
+}
+
+        

@@ -85,7 +85,9 @@ public class UsuarioController implements IUsuarioController {
         String sql = "SELECT * FROM usuarios WHERE rol='Mecánico'";
         
         //Para no llamar la contraseña
-//        String password = null;
+        String password = null;
+//        String primerApellido = null;
+//        String segundoApellido = null;
         List<String> listaMecanicos = new ArrayList<String>();
         try {
             Statement st = conn.conectar().createStatement();
@@ -100,15 +102,15 @@ public class UsuarioController implements IUsuarioController {
                 String segundoApellido = rs.getString("segundooApellido");
                 String numeroContacto = rs.getString("numeroContacto");
                 String estado = rs.getString("estado");
-                String password = rs.getString("password");
+//                String password = rs.getString("password"); 
                 String rol = rs.getString("rol");
                 String correo = rs.getString("correo");
                 
 //                Se crea objeto y se vuelve json.
-                Usuario usuario = new Usuario(estado, password, rol, id, nombre, primerApellido, segundoApellido, correo, numeroContacto);
+                Usuario mecanico = new Usuario(estado, password, rol, id, nombre, primerApellido, segundoApellido, correo, numeroContacto);
                 
                 //Para agregarle
-                listaMecanicos.add(gson.toJson(usuario));
+                listaMecanicos.add(gson.toJson(mecanico));
                 
             }
         } catch (SQLException e) {

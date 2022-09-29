@@ -29,16 +29,16 @@ public class ServletMecanicosListar extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        UsuarioController usuario = new UsuarioController();
-        //setea los datos que obtiene del JS-Json de la intefaz
-        String correo = request.getParameter("correo");
-        String usuarioStr = usuario.listarMecanicos();
+        UsuarioController mecanicos = new UsuarioController();
+        //toma los datos de la BD y los manda a JS-Json de la intefaz
+//        String correo = request.getParameter("correo");
+        String mecanicosStr = mecanicos.listarMecanicos();
         
-        //Pasa esos datos al metodo login de objeto de usuario Controler.
+        response.setContentType("text/html;charset=UTF-8");
+        //Imprime el resultado.
         PrintWriter out = response.getWriter();
-        out.println(usuarioStr);
-        
-        //pa sacarlos por inactividad, por varios parametros que entran. No entender, revisar.
+        out.println(mecanicosStr);
+       
         out.flush();
         out.close();
     }

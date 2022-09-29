@@ -31,7 +31,7 @@ function registrarMecanico() {
         $.ajax({
             type: "GET",
             dataType: "html",
-            url: "../ServletMecanicoRegistro",
+            url: "./ServletMecanicoRegistro",
             data: $.param({
                 idUsuario: idUsuario,
                 nombre: nombre,
