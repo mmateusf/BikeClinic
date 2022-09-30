@@ -3,11 +3,14 @@ package Controller;
 import Beans.Usuario;
 import Connection.DBConnection;
 import com.google.gson.Gson;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.ArrayList;
+
 import java.util.List;
 
 public class UsuarioController implements IUsuarioController {
@@ -88,7 +91,7 @@ public class UsuarioController implements IUsuarioController {
         String password = null;
 //        String primerApellido = null;
 //        String segundoApellido = null;
-        List<String> listaMecanicos = new ArrayList<String>();
+        List<String> listaMecanicos = new ArrayList<>();
         try {
             Statement st = conn.conectar().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -120,6 +123,29 @@ public class UsuarioController implements IUsuarioController {
         }
 
         return gson.toJson(listaMecanicos);
+    }
+
+    @Override
+    public String modificarEstadoMecanico(int id, String estado) {
+        /*
+        import java.sql.Timestamp;
+        import java.util.Date;
+        Timestamp fecha = new Timestamp(new Date().getTime());
+        */ 
+        
+        DBConnection conn = new DBConnection();
+        String sql = "UPDATE usuarios set estado = '" + estado + "' WHERE idUsuario = '" + id + "' and rol = 'Mecánico'";
+        try {
+            Statement st = conn.conectar().createStatement();
+            st.executeUpdate(sql);
+            
+            return "true";
+        } catch (Exception e) {
+            System.out.println("No se pudo relizar actualización de estado mecánico, por: " + e.toString());
+        } finally {
+            conn.desconectar();
+        }
+        return "false"; 
     }
 
 }
