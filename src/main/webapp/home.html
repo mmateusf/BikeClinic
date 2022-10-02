@@ -15,7 +15,7 @@
         <script src="./JS/registrar.js"></script>
         <script src="./JS/home.js"></script>
         <!-- Probar igual que en login -->
-        
+
 
         <style>
             /*            body {
@@ -26,9 +26,13 @@
                 background-image: url(./img/moto.jpg);
                 background-position: center center;
                 border-radius: 60px;
-                box-shadow: 5px 4px 5px black
+                box-shadow: 5px 4px 4px black;
+                margin-right: 0.5rem;
             }
 
+            .titulo-card{
+                margin-top: 7rem;
+            }
             footer {
                 text-align: center;
             }
@@ -37,16 +41,14 @@
     </head>
     <body>
         <!--Navigation-->
-        <header >
-            <nav class="navbar navbar-expand-md navbar-lg bg-light fixed-top m">
+        <header class="mb-5">
+            <nav class="navbar navbar-expand-md navbar-lg bg-light fixed-top mb-5">
                 <div class="container">
 
-
                     <a href="#" class="navbar-brand h4 nav-item">
+                        <img class="logo mr-3"  src="./img/moto.jpg" width="60" alt="logo muestra">
                         Bike Clinic App
                     </a>
-
-                    <img class="logo "  src="./img/moto.jpg" width="60" alt="logo muestra">
 
                     <ul class="navbar-nav ml-auto">
                         <!--<li id="user-name" class="nav-item d-flex-left mx-1 nav-link">Username</li> Aquí se puede dejar para desconectarse. -->
@@ -68,58 +70,20 @@
                 </div>
             </nav>
         </header>
-        <main class="my-5">
+        <main class="container my-5">
             <!-- Titulo Muestra motos -->
-            <section class="container d-flex flex-wrap my-5 bg-light border border-1 border-ligth border-radius  rounded">
-                <!-- Muestra de tarjeta de motos -->
-                <h1 class="container text-bg-dark rounded text-center mt-5 pb-2">Hojas de vida de Motos</h1>
-                <article >
-                    <div class="container col-4 my-3  m-3">
-                        <div class="card" style="width: 18rem;">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">An item</li>
-                                <li class="list-group-item">A second item</li>
-                                <li class="list-group-item">A third item</li>
-                            </ul>
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary">Activar</a>
-                            </div>
-                        </div>
-                    </div> 
-                </article>
+            <!-- Zona de tarjetas de HVs -->
+            <div class="titulo-card bg-dark container rounded ">
+                <h1 class=" text-white text-center pb-2">Motos registradas</h1>
+            </div>
+            <!-- Tarjetas -->
+            <section  class="tarjetero container d-flex flex-wrap my-1 bg-light border border-1 border-ligth border-radius  rounded">
+
+
             </section>
-
-
-            <!-- Scrollable modal -->
-            <!-- Vertically centered scrollable modal -->
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Este modal.
-                            </div>
-                            <div class="modal-footer">
-                            </div>
-                        </div> 
-                    </div> 
-                </div> 
-            </div> 
-
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Launch static backdrop modal
-            </button>
-
+            <!-- Modales -->
+            <section class="modale">    
+            </section>
             <!-- Tabla de mecánicos -->
             <section>
                 <article class=" container table-responsive ">
@@ -138,10 +102,10 @@
                             <!-- Aquí inserta el JS -->
                         </tbody>
                     </table>
-                    
+
                     <!-- Botón para actualizar -->
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button id="btnActualizar" class="btn btn-primary mb-4">Actualizar</button>
+                        <button type="button" id="btnActualizar" class="btn btn-primary mb-4">Actualizar tabla</button>
                     </div>
                 </article>
             </section>

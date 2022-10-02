@@ -51,6 +51,7 @@ public class UsuarioController implements IUsuarioController {
         //ASignación de Variables que no se colocan en front pero deben ir en persistencia. NO ES NECESARIO SE SETEAN EN EL JS.
 //        estado = "Activo";
 //        rol = "Mecánico";
+
         //Para los Json
         Gson gson = new Gson();
         DBConnection conn = new DBConnection();
@@ -89,6 +90,7 @@ public class UsuarioController implements IUsuarioController {
         
         //Para no llamar la contraseña
         String password = null;
+//        Iba a hacer la concatenación aquí mandando solo la variable nombre, pero mejor en el js. 
 //        String primerApellido = null;
 //        String segundoApellido = null;
         List<String> listaMecanicos = new ArrayList<>();

@@ -1,7 +1,7 @@
 
 package Beans;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -11,32 +11,30 @@ public class OrdenDeServicio {
      private int idOrden;
     //formato: YYYY-MM-DD, new SimpleDateFormat("dd-MM-yyyy").format(objeto creado con Date))
     private Date date;
-    private String idCliente;
-    private String idMecanico;
+    private String nombreCliente;
+    private String nombreMecanico;
     private String placaMoto;
     private String motivo;
+    private String descripcionDiagnostico;
     private String documentos;
     private String anticipo;
     private double valorAnticipo;
-    private String idEstado;
-    private String descripcionDiagnostico;
     private String autorizacionRuta;
-    
+    private int idEstado;
 
-    public OrdenDeServicio(int idOrden, Date date, String idCliente, String idMecanico, String placaMoto, String motivo, String documentos, String anticipo, double valorAnticipo, String idEstado, String descripcionDiagnostico, String autorizacionRuta) {
+    public OrdenDeServicio(int idOrden, Date date, String nombreCliente, String nombreMecanico, String placaMoto, String motivo, String descripcionDiagnostico, String documentos, String anticipo, double valorAnticipo, String autorizacionRuta, int idEstado) {
         this.idOrden = idOrden;
         this.date = date;
-        this.idCliente = idCliente;
-        this.idMecanico = idMecanico;
+        this.nombreCliente = nombreCliente;
+        this.nombreMecanico = nombreMecanico;
         this.placaMoto = placaMoto;
         this.motivo = motivo;
+        this.descripcionDiagnostico = descripcionDiagnostico;
         this.documentos = documentos;
         this.anticipo = anticipo;
         this.valorAnticipo = valorAnticipo;
-        this.idEstado = idEstado;
-        this.descripcionDiagnostico = descripcionDiagnostico;
         this.autorizacionRuta = autorizacionRuta;
-       
+        this.idEstado = idEstado;
     }
 
     public int getIdOrden() {
@@ -55,20 +53,20 @@ public class OrdenDeServicio {
         this.date = date;
     }
 
-    public String getidCliente() {
-        return idCliente;
+    public String getNombreCliente() {
+        return nombreCliente;
     }
 
-    public void setidCliente(String idCliente) {
-        this.idCliente = idCliente;
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
-    public String getMecanico() {
-        return idMecanico;
+    public String getNombreMecanico() {
+        return nombreMecanico;
     }
 
-    public void setMecanico(String idMecanico) {
-        this.idMecanico = idMecanico;
+    public void setNombreMecanico(String nombreMecanico) {
+        this.nombreMecanico = nombreMecanico;
     }
 
     public String getPlacaMoto() {
@@ -87,6 +85,14 @@ public class OrdenDeServicio {
         this.motivo = motivo;
     }
 
+    public String getDescripcionDiagnostico() {
+        return descripcionDiagnostico;
+    }
+
+    public void setDescripcionDiagnostico(String descripcionDiagnostico) {
+        this.descripcionDiagnostico = descripcionDiagnostico;
+    }
+
     public String getDocumentos() {
         return documentos;
     }
@@ -95,11 +101,11 @@ public class OrdenDeServicio {
         this.documentos = documentos;
     }
 
-    public String getAncipo() {
+    public String getAnticipo() {
         return anticipo;
     }
 
-    public void setAncipo(String ancipo) {
+    public void setAnticipo(String anticipo) {
         this.anticipo = anticipo;
     }
 
@@ -111,22 +117,6 @@ public class OrdenDeServicio {
         this.valorAnticipo = valorAnticipo;
     }
 
-    public String getEstado() {
-        return idEstado;
-    }
-
-    public void setEstado(String idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    public String getDescripcionDiagnostico() {
-        return descripcionDiagnostico;
-    }
-
-    public void setDescripcionDiagnostico(String descripcionDiagnostico) {
-        this.descripcionDiagnostico = descripcionDiagnostico;
-    }
-
     public String getAutorizacionRuta() {
         return autorizacionRuta;
     }
@@ -135,25 +125,30 @@ public class OrdenDeServicio {
         this.autorizacionRuta = autorizacionRuta;
     }
 
-    
+    public int getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(int idEstado) {
+        this.idEstado = idEstado;
+    }
 
     @Override
     public String toString() {
         return "OrdenDeServicio{" + 
                 "idOrden=" + idOrden + 
                 ", date=" + date + 
-                ", cliente=" + idCliente + 
-                ", mecanico=" + idMecanico + 
-                ", moto=" + placaMoto + 
+                ", nombreCliente=" + nombreCliente + 
+                ", nombreMecanico=" + nombreMecanico + 
+                ", placaMoto=" + placaMoto + 
                 ", motivo=" + motivo + 
+                ", descripcionDiagnostico=" + descripcionDiagnostico + 
                 ", documentos=" + documentos + 
                 ", anticipo=" + anticipo + 
-                ", idEstado=" + idEstado + 
-                ", descripcionDiagnostico=" + descripcionDiagnostico + 
-                ", autorizacionRuta=" + autorizacionRuta + 
+                ", valorAnticipo=" + valorAnticipo + 
+                ", autorizacionRuta=" + autorizacionRuta + ", idEstado=" + idEstado + 
                 '}';
     }
-    
     
 }
 

@@ -10,25 +10,25 @@ import java.sql.Date;
 public class HVmoto {
     private int idOrden;
     private String placaMoto;
-    private String idCliente;
-    private String idMecanico;
+    private String nombreCliente;
+    private String nombreMecanico;
     private String motivo;
     private String documentos;
     private String anticipo;
     private double valorAnticipo;
     private String autorizacionRuta;
     private Date date;
-    private String idEstado;
+    private int idEstado;
     private String descripcionDiagnostico;
     private String productoServicio;
     private String servicios;
     private String aprobadoCliente;
 
-    public HVmoto(int idOrden, String placaMoto, String idCliente, String idMecanico, String motivo, String documentos, String anticipo, double valorAnticipo, String autorizacionRuta, Date date, String idEstado, String descripcionDiagnostico, String productoServicio, String servicios, String aprobadoCliente) {
+    public HVmoto(int idOrden, String placaMoto, String nombreCliente, String nombreMecanico, String motivo, String documentos, String anticipo, double valorAnticipo, String autorizacionRuta, Date date, int idEstado, String descripcionDiagnostico, String productoServicio, String servicios, String aprobadoCliente) {
         this.idOrden = idOrden;
         this.placaMoto = placaMoto;
-        this.idCliente = idCliente;
-        this.idMecanico = idMecanico;
+        this.nombreCliente = nombreCliente;
+        this.nombreMecanico = nombreMecanico;
         this.motivo = motivo;
         this.documentos = documentos;
         this.anticipo = anticipo;
@@ -58,20 +58,20 @@ public class HVmoto {
         this.placaMoto = placaMoto;
     }
 
-    public String getIdCliente() {
-        return idCliente;
+    public String getNombreCliente() {
+        return nombreCliente;
     }
 
-    public void setIdCliente(String idCliente) {
-        this.idCliente = idCliente;
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
-    public String getIdMecanico() {
-        return idMecanico;
+    public String getNombreMecanico() {
+        return nombreMecanico;
     }
 
-    public void setIdMecanico(String idMecanico) {
-        this.idMecanico = idMecanico;
+    public void setNombreMecanico(String nombreMecanico) {
+        this.nombreMecanico = nombreMecanico;
     }
 
     public String getMotivo() {
@@ -122,11 +122,11 @@ public class HVmoto {
         this.date = date;
     }
 
-    public String getIdEstado() {
+    public int getIdEstado() {
         return idEstado;
     }
 
-    public void setIdEstado(String idEstado) {
+    public void setIdEstado(int idEstado) {
         this.idEstado = idEstado;
     }
 
@@ -167,8 +167,8 @@ public class HVmoto {
         return "HVmoto{" + 
                 "idOrden=" + idOrden + 
                 ", placaMoto=" + placaMoto + 
-                ", idCliente=" + idCliente + 
-                ", idMecanico=" + idMecanico + 
+                ", nombreCliente=" + nombreCliente + 
+                ", nombreMecanico=" + nombreMecanico + 
                 ", motivo=" + motivo + 
                 ", documentos=" + documentos + 
                 ", anticipo=" + anticipo + 

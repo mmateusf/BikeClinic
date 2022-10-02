@@ -1,12 +1,19 @@
 //Para llamar métodos. 
 $(document).ready(function () {
 
+    obtenerListaMoto();
+    obtenerListaOrdenes();
     obtenerListaMecanicos();
     cambiarEstadoMecanico();
+    $("#btnActualizar").click(function (event) {
+        event.preventDefault();
+        obtenerListaMecanicos();
+        console.log("Funciona el botón ese.")
+    });
 
 });
 
-
+//Mecáncos
 function obtenerListaMecanicos() {
 
     $.ajax({
@@ -17,7 +24,7 @@ function obtenerListaMecanicos() {
             let parsedResult = JSON.parse(result);
             if (parsedResult !== false) {
                 mostrarMecanicos(parsedResult);
-                
+
             } else {
                 console.log("Hubo un problema al llamar los datos de lista mecánicos");
             }
@@ -39,9 +46,9 @@ function mostrarMecanicos(listaMecanicos) {
                 '<td>' + /* Aquí se chequea y se agrega el valor de check */
                 '<div d-inline class="form-check form-switch">' +
                 '<input class="form-check-input" type="checkbox" role="switch" id="estado-mecanico"';
-                tabla += (mecanico.estado === "Activo" ? 'checked>' : '>' );
-                tabla += '<label class="form-check-label" for="estado-mecanico">' + mecanico.estado + '</label>' +
-                '</div>' +  
+        tabla += (mecanico.estado === "Activo" ? 'checked>' : '>');
+        tabla += '<label class="form-check-label" for="estado-mecanico">' + mecanico.estado + '</label>' +
+                '</div>' +
                 '</td>' +
                 '</tr>';
     });
@@ -50,24 +57,165 @@ function mostrarMecanicos(listaMecanicos) {
 
 }
 
+//Motos
+function obtenerListaMoto() {
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletMotoListar",
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                mostrarMotos(parsedResult);
+
+            } else {
+                console.log("Hubo un problema al llamar los datos de lista HVmotos");
+            }
+        }
+    });
+}
+
+function mostrarMotos(listaMotos) {
+
+    let tarjeta = "";
+
+    $.each(listaMotos, function (index, moto) {
+        let motoParsed = JSON.parse(moto);
+        let plac = motoParsed.placa;
+        tarjeta += '<article class="m-2 ">' +
+                '<div class="container col-4 ">' +
+                '<div class="card" style="width: 17rem;">' +
+                '<img src="./img/moto.jpg" class="card-img-top" alt="logo-moto">' +
+                '<div class="card-body bg-dark rounded">' +
+                '<h5 class="card-title text-white">' + motoParsed.placa + '</h5>' +
+                '<p class="card-text text-white">' + motoParsed.marca + ' ' + motoParsed.modelo + '</p>' +
+                '</div>' +
+                '<ul class="list-group list-group-flush">' +
+                '<li class="list-group-item">' + '<strong>ID Cliente:</strong> ' + motoParsed.idCliente + '</li>' +
+                '<li class="list-group-item">' + '<strong>Nombre:</strong> ' + motoParsed.nombreCliente + '</li>' +
+                '<li class="list-group-item">' + '<strong>Año modelo:</strong> ' + motoParsed.annoRegistro + '</li>' +
+                '</ul>' +
+                '<div class="card-body text-center">' +
+                '<button type="button" class="activar-modal btn btn-dark" data-bs-toggle="modal" data-bs-target="#' + plac + '">' +
+                'Ver ordenes de servicio' +
+                '</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</article>';
+    });
+    $('.tarjetero').html(tarjeta);
+}
+
+//Ordenes de servicio
+function obtenerListaOrdenes() {
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletOrndeListar",
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                mostrarOrdenes(parsedResult);
+
+            } else {
+                console.log("Hubo un problema al llamar los datos de lista Ordenes de servicio");
+            }
+        }
+    });
+}
+//Entonces socio, haga lo siguiente, dos funciones llamando estado y registros(con servlets y controller
+//Luego llame un par de funciones que va declarar dentro de mostrarOrdenes que setten los datos dentro de accordeons 
+function mostrarOrdenes(listaOrdenes) {
+
+    let placa = [];
+    let modal = "";
+
+    $.each(listaOrdenes, function (index, orden) {
+        let ordenParsed = JSON.parse(orden);
+
+        modal += '<article>' +
+                '<!-- Scrollable modal -->' +
+                '<!-- Vertically centered scrollable modal -->' +
+                '<div class="cajitas modal-dialog modal-dialog-centered modal-dialog-scrollable ">' +
+                '<div class="modal fade" id="' + ordenParsed.placaMoto + '" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">' +
+                '<div class="modal-dialog">' +
+                '<div class="modal-content">' +
+                '<div class="modal-header bg-dark border-top border-start border-end border-3 ">' +
+                '<h5 class="modal-title text-white" id="staticBackdropLabel"><strong>Registro de moto: </strong>' + ordenParsed.placaMoto + '</h5>' +
+                '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                '</div>' +
+                '<div id="ordenes" class="ordenes modal-body border border border-3 border-dark" style="--bs-border-opacity: .8;" >';
+        verOrdenesPorMoto();
+        function verOrdenesPorMoto() {
+            
+            $.each(listaOrdenes, function (index, ordenPorM) {
+                let ordenMotoParsed = JSON.parse(ordenPorM);
+                
+                if (ordenMotoParsed.placaMoto === ordenParsed.placaMoto) {
+                    let agrupadas =(ordenMotoParsed);
+                    
+                modal += '<!--AQUÍ inician los accordeon-->' +
+                    '<div class="accordion accordion-flush" id="accordionFlushOrdenes">' +
+                    '<div class="accordion-item">' +
+                    '<h2 class="accordion-header" id="flush-heading-' + agrupadas.idOrden + '">' +
+                    '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-' + agrupadas.idOrden + '" aria-expanded="false" aria-controls="flush-collapse-' + agrupadas.idOrden + '">' +
+                    '<strong>Ordén de Servicio:  #</strong>' + agrupadas.idOrden + '</h2>' +
+                    '</button>' +
+                    '<!--AQUÍ termina parte los accordeon-->' +
+                    //pa abajo es pa meter estado y productos
+                    '<!--AQUÍ Reinicia los accordeon-->' +
+                    '<div id="flush-collapse-' + agrupadas.idOrden + '" class="accordion-collapse collapse" aria-labelledby="flush-heading-' + agrupadas.idOrden + '" data-bs-parent="#accordionFlushOrdenes">' +
+                    '<div class="accordion-body">' +
+                    '<ul class="list-group list-group-flush">' +
+                    '<li class="list-group-item"><strong>Fecha de ingreso:  </strong>' + agrupadas.date + '</li>' +
+                    '<li class="list-group-item"><strong>Motivo de ingreso:  </strong>' + agrupadas.motivo + '</li>' +
+                    '<li class="list-group-item"><strong>Diagnóstico:  </strong>' + agrupadas.descripcionDiagnostico + '</li>' +
+                    '<li class="list-group-item"><strong>Documentos en resguardo:  </strong>' + agrupadas.documentos + '</li>' +
+                    '<li class="list-group-item"><strong>Realiza anticipo:  </strong>' + agrupadas.anticipo + '</li>' +
+                    '<li class="list-group-item"><strong>Valor anticipo:  </strong>$' + agrupadas.valorAnticipo + '</li>' +
+                    '<li class="estado list-group-item"><strong>Autorización prueba de ruta:  </strong>' + agrupadas.autorizacionRuta + '</li>' +
+                    '</ul>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>'; 
+                  }  
+            });
+        
+            return placa;
+        }
+        //termina el acordeon
+        modal += '<div class="modal-footer mb-3">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</article>';
+    });
+    $('.modale').html(modal);
+
+}
 
 
 function cambiarEstadoMecanico() {
 
+    //Para cambiar el estado en la interfaz cuando se da clic en el switch button 
     $(document).on('change', '#estado-mecanico', function (event) {
         event.preventDefault();
         let idUsuario = $(this).parent().parent().parent().children().first().text();
         let estado = $(this).parent().parent().parent().children().last().text();
         if (estado.trim() === 'Activo') {
             estado = 'Inactivo';
-            console.log("Funciona true if");
 
         } else {
             estado = 'Activo';
 
-            console.log("Funciona false if");
         }
-        console.log("Funciona antes ajax");
+
         $.ajax({
             type: "GET",
             dataType: "html",
@@ -80,7 +228,7 @@ function cambiarEstadoMecanico() {
                 let parsedResult = JSON.parse(result);
                 if (parsedResult !== false) {
                     console.log("Funciona success");
-                    obtenerListaMecanicos()
+                    obtenerListaMecanicos();
 
                 } else {
                     console.log("Hubo un problema al cambiar estado mecánicos JS");
@@ -89,3 +237,4 @@ function cambiarEstadoMecanico() {
         });
     });
 }
+
