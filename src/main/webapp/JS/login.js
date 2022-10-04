@@ -29,6 +29,8 @@ function autenticarUsuario() {
                     } else {
                         document.location.href = "home.html?correo= " + correo;
                     }
+                }else {
+                    document.location.href = "mecanico.html?correo= " + correo;
                 }
             } else {
                 $("#login-error").removeClass("d-none");
