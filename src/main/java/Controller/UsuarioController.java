@@ -99,7 +99,6 @@ public class UsuarioController implements IUsuarioController {
             ResultSet rs = st.executeQuery(sql);
             //List para guardar objeticos :D
             
-            
             while (rs.next()) {
                 int id = rs.getInt("idUsuario");
                 String nombre = rs.getString("nombre");

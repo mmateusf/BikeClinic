@@ -4,8 +4,7 @@ package Test;
 
 import Beans.*;
 import Connection.DBConnection;
-import Controller.MotoController;
-import Controller.OrdenController;
+import Controller.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -36,6 +35,8 @@ public class OperacionesDB {
 //        System.out.println(moto.listarMotos());
 //          OrdenController ordenC = new OrdenController();
 //          System.out.println(ordenC.listarOrdenes());
+        EstadoController estadoC = new EstadoController();
+        System.out.println(estadoC.listarEstado());
     }
       
     
@@ -117,7 +118,7 @@ public class OperacionesDB {
      * Prueba para poder conectase, mediante metodo en sección de pruebas. 
      */
     
-    
+    /*
     public static void listarEstado(int idEstado){
         System.out.println("----------------------------------------");
         DBConnection conn = new DBConnection();
@@ -167,7 +168,7 @@ public class OperacionesDB {
         } finally {
             conn.desconectar();
         }
-    }
+    }*/
     
     
     public static void conectarse() {

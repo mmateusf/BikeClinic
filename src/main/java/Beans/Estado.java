@@ -1,4 +1,3 @@
-
 package Beans;
 
 /**
@@ -6,6 +5,8 @@ package Beans;
  * @author BMO
  */
 public class Estado {
+
+    private int moto;
     private int idEstado;
     private String indicadores;
     private String desIndicadores;
@@ -32,7 +33,8 @@ public class Estado {
     private String kilometraje;
     private String combustible;
 
-    public Estado(int idEstado, String indicadores, String desIndicadores, String aceite, String nivelAceite, String liquidoFrenos, String liquidoEmbrague, String liquidoRefrigerante, String lucesAptas, String espejos, String claxon, String tanque, String llantaDelantera, String llantaTrasera, String motor, String chasis, String acelerador, String escape, String trasmision, String embrague, String frenos, String cadena, String apoyaPies, String kilometraje, String combustible) {
+    public Estado(int moto, int idEstado, String indicadores, String desIndicadores, String aceite, String nivelAceite, String liquidoFrenos, String liquidoEmbrague, String liquidoRefrigerante, String lucesAptas, String espejos, String claxon, String tanque, String llantaDelantera, String llantaTrasera, String motor, String chasis, String acelerador, String escape, String trasmision, String embrague, String frenos, String cadena, String apoyaPies, String kilometraje, String combustible) {
+        this.moto = moto;
         this.idEstado = idEstado;
         this.indicadores = indicadores;
         this.desIndicadores = desIndicadores;
@@ -58,6 +60,14 @@ public class Estado {
         this.apoyaPies = apoyaPies;
         this.kilometraje = kilometraje;
         this.combustible = combustible;
+    }
+
+    public int getMoto() {
+        return moto;
+    }
+
+    public void setMoto(int moto) {
+        this.moto = moto;
     }
 
     public int getIdEstado() {
@@ -120,8 +130,8 @@ public class Estado {
         return liquidoRefrigerante;
     }
 
-    public void setLiquidoRefrigerante(String liquidoRegrigerante) {
-        this.liquidoRefrigerante = liquidoRegrigerante;
+    public void setLiquidoRefrigerante(String liquidoRefrigerante) {
+        this.liquidoRefrigerante = liquidoRefrigerante;
     }
 
     public String getLucesAptas() {
@@ -262,8 +272,33 @@ public class Estado {
 
     @Override
     public String toString() {
-        return "Estado{" + "idEstado=" + idEstado + ", indicadores=" + indicadores + ", desIndicadores=" + desIndicadores + ", aceite=" + aceite + ", nivelAceite=" + nivelAceite + ", liquidoFrenos=" + liquidoFrenos + ", liquidoEmbrague=" + liquidoEmbrague + ", liquidoRegrigerante=" + liquidoRefrigerante + ", lucesAptas=" + lucesAptas + ", espejos=" + espejos + ", claxon=" + claxon + ", tanque=" + tanque + ", llantaDelantera=" + llantaDelantera + ", llantaTrasera=" + llantaTrasera + ", motor=" + motor + ", chasis=" + chasis + ", acelerador=" + acelerador + ", escape=" + escape + ", trasmision=" + trasmision + ", embrague=" + embrague + ", frenos=" + frenos + ", cadena=" + cadena + ", apoyaPies=" + apoyaPies + ", kilometraje=" + kilometraje + ", combustible=" + combustible + '}';
+        return "Estado{"
+                + "moto=" + moto
+                + ", idEstado=" + idEstado
+                + ", indicadores=" + indicadores
+                + ", desIndicadores=" + desIndicadores
+                + ", aceite=" + aceite
+                + ", nivelAceite=" + nivelAceite
+                + ", liquidoFrenos=" + liquidoFrenos
+                + ", liquidoEmbrague=" + liquidoEmbrague
+                + ", liquidoRefrigerante=" + liquidoRefrigerante
+                + ", lucesAptas=" + lucesAptas
+                + ", espejos=" + espejos
+                + ", claxon=" + claxon
+                + ", tanque=" + tanque
+                + ", llantaDelantera=" + llantaDelantera
+                + ", llantaTrasera=" + llantaTrasera
+                + ", motor=" + motor
+                + ", chasis=" + chasis
+                + ", acelerador=" + acelerador
+                + ", escape=" + escape
+                + ", trasmision=" + trasmision
+                + ", embrague=" + embrague
+                + ", frenos=" + frenos
+                + ", cadena=" + cadena
+                + ", apoyaPies=" + apoyaPies
+                + ", kilometraje=" + kilometraje
+                + ", combustible=" + combustible
+                + '}';
     }
-    
-    
 }

@@ -1,14 +1,16 @@
 //Para llamar métodos. 
+
 $(document).ready(function () {
 
     obtenerListaMoto();
     obtenerListaOrdenes();
     obtenerListaMecanicos();
     cambiarEstadoMecanico();
+
     $("#btnActualizar").click(function (event) {
         event.preventDefault();
         obtenerListaMecanicos();
-        console.log("Funciona el botón ese.")
+        console.log("Funciona el botón ese.");
     });
 
 });
@@ -82,7 +84,7 @@ function mostrarMotos(listaMotos) {
 
     $.each(listaMotos, function (index, moto) {
         let motoParsed = JSON.parse(moto);
-        let plac = motoParsed.placa;
+
         tarjeta += '<article class="m-2 ">' +
                 '<div class="container col-4 ">' +
                 '<div class="card" style="width: 17rem;">' +
@@ -97,7 +99,7 @@ function mostrarMotos(listaMotos) {
                 '<li class="list-group-item">' + '<strong>Año modelo:</strong> ' + motoParsed.annoRegistro + '</li>' +
                 '</ul>' +
                 '<div class="card-body text-center">' +
-                '<button type="button" class="activar-modal btn btn-dark" data-bs-toggle="modal" data-bs-target="#' + plac + '">' +
+                '<button type="button" class="activar-modal btn btn-dark" data-bs-toggle="modal" data-bs-target="#' + motoParsed.placa + '">' +
                 'Ver ordenes de servicio' +
                 '</button>' +
                 '</div>' +
@@ -129,13 +131,9 @@ function obtenerListaOrdenes() {
 //Entonces socio, haga lo siguiente, dos funciones llamando estado y registros(con servlets y controller
 //Luego llame un par de funciones que va declarar dentro de mostrarOrdenes que setten los datos dentro de accordeons 
 function mostrarOrdenes(listaOrdenes) {
-
-    let placa = [];
     let modal = "";
-
     $.each(listaOrdenes, function (index, orden) {
         let ordenParsed = JSON.parse(orden);
-
         modal += '<article>' +
                 '<!-- Scrollable modal -->' +
                 '<!-- Vertically centered scrollable modal -->' +
@@ -147,47 +145,44 @@ function mostrarOrdenes(listaOrdenes) {
                 '<h5 class="modal-title text-white" id="staticBackdropLabel"><strong>Registro de moto: </strong>' + ordenParsed.placaMoto + '</h5>' +
                 '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
                 '</div>' +
-                '<div id="ordenes" class="ordenes modal-body border border border-3 border-dark" style="--bs-border-opacity: .8;" >';
+                '<div id="ordenes" class="ordenes modal-body border border border-3 border-dark" style="--bs-border-opacity: .8;">';
         verOrdenesPorMoto();
         function verOrdenesPorMoto() {
-            
+
             $.each(listaOrdenes, function (index, ordenPorM) {
                 let ordenMotoParsed = JSON.parse(ordenPorM);
-                
+                //solo poner las ordenes de está moto.
                 if (ordenMotoParsed.placaMoto === ordenParsed.placaMoto) {
-                    let agrupadas =(ordenMotoParsed);
-                    
-                modal += '<!--AQUÍ inician los accordeon-->' +
-                    '<div class="accordion accordion-flush" id="accordionFlushOrdenes">' +
-                    '<div class="accordion-item">' +
-                    '<h2 class="accordion-header" id="flush-heading-' + agrupadas.idOrden + '">' +
-                    '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-' + agrupadas.idOrden + '" aria-expanded="false" aria-controls="flush-collapse-' + agrupadas.idOrden + '">' +
-                    '<strong>Ordén de Servicio:  #</strong>' + agrupadas.idOrden + '</h2>' +
-                    '</button>' +
-                    '<!--AQUÍ termina parte los accordeon-->' +
-                    //pa abajo es pa meter estado y productos
-                    '<!--AQUÍ Reinicia los accordeon-->' +
-                    '<div id="flush-collapse-' + agrupadas.idOrden + '" class="accordion-collapse collapse" aria-labelledby="flush-heading-' + agrupadas.idOrden + '" data-bs-parent="#accordionFlushOrdenes">' +
-                    '<div class="accordion-body">' +
-                    '<ul class="list-group list-group-flush">' +
-                    '<li class="list-group-item"><strong>Fecha de ingreso:  </strong>' + agrupadas.date + '</li>' +
-                    '<li class="list-group-item"><strong>Motivo de ingreso:  </strong>' + agrupadas.motivo + '</li>' +
-                    '<li class="list-group-item"><strong>Diagnóstico:  </strong>' + agrupadas.descripcionDiagnostico + '</li>' +
-                    '<li class="list-group-item"><strong>Documentos en resguardo:  </strong>' + agrupadas.documentos + '</li>' +
-                    '<li class="list-group-item"><strong>Realiza anticipo:  </strong>' + agrupadas.anticipo + '</li>' +
-                    '<li class="list-group-item"><strong>Valor anticipo:  </strong>$' + agrupadas.valorAnticipo + '</li>' +
-                    '<li class="estado list-group-item"><strong>Autorización prueba de ruta:  </strong>' + agrupadas.autorizacionRuta + '</li>' +
-                    '</ul>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>'; 
-                  }  
+
+                    //Cambié de lugar el h2 y el button
+                    modal += '<!--AQUÍ inician los accordeon-->' +
+                            '<div class="accordion accordion-flush" id="accordionFlushOrdenes">' +
+                            '<div class="accordion-item">' +
+                            '<h2 class="accordion-header" id="flush-heading-' + ordenMotoParsed.idOrden + '">' +
+                            '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-' + ordenMotoParsed.idOrden + '" aria-expanded="false" aria-controls="flush-collapse-' + ordenMotoParsed.idOrden + '">' +
+                            '<strong>Ordén de Servicio:  #</strong>' + ordenMotoParsed.idOrden +
+                            '</button>' +
+                            '</h2>' +
+                            '<div id="flush-collapse-' + ordenMotoParsed.idOrden + '" class="accordion-collapse collapse" aria-labelledby="flush-heading-' + ordenMotoParsed.idOrden + '" data-bs-parent="#accordionFlushOrdenes">' +
+                            '<div class="accordion-body">' +
+                            '<ul class="list-group list-group-flush">' +
+                            '<li class="list-group-item"><strong>Fecha de ingreso:  </strong>' + ordenMotoParsed.date + '</li>' +
+                            '<li class="list-group-item"><strong>Motivo de ingreso:  </strong>' + ordenMotoParsed.motivo + '</li>' +
+                            '<li class="list-group-item"><strong>Diagnóstico:  </strong>' + ordenMotoParsed.descripcionDiagnostico + '</li>' +
+                            '<li class="list-group-item"><strong>Documentos en resguardo:  </strong>' + ordenMotoParsed.documentos + '</li>' +
+                            '<li class="list-group-item"><strong>Realiza anticipo:  </strong>' + ordenMotoParsed.anticipo + '</li>' +
+                            '<li class="list-group-item"><strong>Valor anticipo:  </strong>$' + ordenMotoParsed.valorAnticipo + '</li>' +
+                            '<li id="orden-' + ordenMotoParsed.idOrden + '"class="orden-' + ordenMotoParsed.idOrden + ' list-group-item"><strong>Autorización prueba de ruta:  </strong>' + ordenMotoParsed.autorizacionRuta + '</li>' +
+                            '<!--Cierra inicio de modal-->'+
+                            '</ul>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                } //termina if ordenes
             });
-        
-            return placa;
         }
-        //termina el acordeon
+        //termina el acordeon y el modal.
         modal += '<div class="modal-footer mb-3">' +
                 '</div>' +
                 '</div>' +
@@ -197,7 +192,6 @@ function mostrarOrdenes(listaOrdenes) {
                 '</article>';
     });
     $('.modale').html(modal);
-
 }
 
 
@@ -210,10 +204,8 @@ function cambiarEstadoMecanico() {
         let estado = $(this).parent().parent().parent().children().last().text();
         if (estado.trim() === 'Activo') {
             estado = 'Inactivo';
-
         } else {
             estado = 'Activo';
-
         }
 
         $.ajax({
@@ -229,7 +221,6 @@ function cambiarEstadoMecanico() {
                 if (parsedResult !== false) {
                     console.log("Funciona success");
                     obtenerListaMecanicos();
-
                 } else {
                     console.log("Hubo un problema al cambiar estado mecánicos JS");
                 }
