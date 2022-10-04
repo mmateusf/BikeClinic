@@ -35,8 +35,11 @@ public class OperacionesDB {
 //        System.out.println(moto.listarMotos());
 //          OrdenController ordenC = new OrdenController();
 //          System.out.println(ordenC.listarOrdenes());
-        EstadoController estadoC = new EstadoController();
-        System.out.println(estadoC.listarEstado());
+//        EstadoController estadoC = new EstadoController();
+//        System.out.println(estadoC.listarEstado());
+//       RegistroController registro = new RegistroController();
+//        System.out.println(registro.listarRegistros());
+       
     }
       
     

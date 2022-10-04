@@ -3,6 +3,7 @@
 $(document).ready(function () {
 
     obtenerListaEstados();
+    obtenerListaRegistros();
 
 });
 
@@ -102,5 +103,77 @@ function mostrarEstado(listaEstados) {
             });//foreach
             accordeon = "";
         }
+    });
+}
+
+//Registros
+function obtenerListaRegistros() {
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletRegistroListar",
+        success: function (result) {
+            let parsedResultRegistros = JSON.parse(result);
+            if (parsedResultRegistros !== false) {
+                mostrarRegistro(parsedResultRegistros);
+            } else {
+                console.log("Hubo un problema al llamar los datos de lista registros producto-servicio");
+            }
+        }
+    });
+}
+
+
+function mostrarRegistro(listaRegistros) {
+    let accordeonR = "";
+    //moto es en realidad el id de la orden.
+    $.each(listaRegistros, function (index, registro) {
+        let registroParsed = JSON.parse(registro);
+//       1 2 3/ 3
+        accordeonR += '<div class="cajitas ">' +
+                '<div id="ordenes" class="ordenes modal-body border border border-3 border-dark" style="--bs-border-opacity: .4;"><strong> Registros de la orden</strong>';
+
+        verRegistrosPorOrden();
+        function verRegistrosPorOrden() {
+            $.each(listaRegistros, function (index, registroPorO) {
+                let registroOrdenParsed = JSON.parse(registroPorO);
+                //solo poner las ordenes de está moto.
+                if (registroOrdenParsed.idOrden === registroParsed.idOrden) {
+                    accordeonR += '<div class="accordion accordion-flush" id="accordionFlushRegistros">' +
+                            '<div class="accordion-item">' +
+                            '<h2 class="accordion-header" id="flush-heading-registros-' + registroOrdenParsed.idRegistro + '">' +
+                            '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-registros-' + registroOrdenParsed.idRegistro + '" aria-expanded="false" aria-controls="flush-collapse-registros-' + registroOrdenParsed.idRegistro + '">' +
+                            '<strong>Registro:  #</strong> ' + registroOrdenParsed.idRegistro + ' de la orden: ' + registroOrdenParsed.idOrden +
+                            '</button>' +
+                            '</h2>' +
+                            '<div id="flush-collapse-registros-' + registroOrdenParsed.idRegistro + '" class="accordion-collapse collapse" aria-labelledby="flush-heading-registros-' + registroOrdenParsed.idRegistro + '" data-bs-parent="#accordionFlushRegistros">' +
+                            '<div class="accordion-body">' +
+                            '<ul class="list-group list-group">' +
+                            '<li class="list-group-item"><strong>Producto:  </strong>' + registroOrdenParsed.nombreProducto + '</li>' +
+                            '<li class="list-group-item"><strong>Valor producto:  </strong>' + registroOrdenParsed.valorProducto + '</li>' +
+                            '<li class="list-group-item"><strong>Detalle Servicio:  </strong>' + registroOrdenParsed.nombreServicio + '</li>' +
+                            '</ul>' +
+                            '<ul class="list-group list-group">' +
+                            '<li class="list-group-item"><strong>Detalle servicio:  </strong>' + registroOrdenParsed.detalleServicio + '</li>' +
+                            '<li class="list-group-item"><strong>Valor servicio:  </strong>' + registroOrdenParsed.valorServicio + '</li>' +
+                            '<li class="list-group-item"><strong>Aprobado por cliente.  </strong>$' + registroOrdenParsed.aprobado + '</li>' +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+
+                } //termina if estados por ordenes
+            });//foreach
+        }
+        accordeonR +='</div>';
+        try {
+            clase = ".orden-registro-" + registroParsed.idOrden;
+            $(clase).html(accordeonR);
+        } catch (e) {
+            console.log(e);
+        }
+        accordeonR = "";
     });
 }

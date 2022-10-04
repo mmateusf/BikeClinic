@@ -6,18 +6,32 @@ package Beans;
  * @author BMO
  */
 public class RegistroProductoServicio {
+    private int idOrden;
     private int idRegistro;
-    private Producto producto;
-    private Servicio servicio;
-    private boolean aprobado;
-    private String orden;
+    private String nombreProducto;
+    private double valorProducto;
+    private String nombreServicio;
+    private String detalleServicio;
+    private double valorServicio;
+    private String aprobado;
 
-    public RegistroProductoServicio(int idRegistro, Producto producto, Servicio servicio, boolean aprobado, String orden) {
+    public RegistroProductoServicio(int idOrden, int idRegistro, String nombreProducto, double valorProducto, String nombreServicio, String detalleServicio, double valorServicio, String aprobado) {
+        this.idOrden = idOrden;
         this.idRegistro = idRegistro;
-        this.producto = producto;
-        this.servicio = servicio;
+        this.nombreProducto = nombreProducto;
+        this.valorProducto = valorProducto;
+        this.nombreServicio = nombreServicio;
+        this.detalleServicio = detalleServicio;
+        this.valorServicio = valorServicio;
         this.aprobado = aprobado;
-        this.orden = orden;
+    }
+
+    public int getIdOrden() {
+        return idOrden;
+    }
+
+    public void setIdOrden(int idOrden) {
+        this.idOrden = idOrden;
     }
 
     public int getIdRegistro() {
@@ -28,50 +42,65 @@ public class RegistroProductoServicio {
         this.idRegistro = idRegistro;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public String getNombreProducto() {
+        return nombreProducto;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
     }
 
-    public Servicio getServicio() {
-        return servicio;
+    public double getValorProducto() {
+        return valorProducto;
     }
 
-    public void setServicio(Servicio servicio) {
-        this.servicio = servicio;
+    public void setValorProducto(double valorProducto) {
+        this.valorProducto = valorProducto;
     }
 
-    public boolean isAprobado() {
+    public String getNombreServicio() {
+        return nombreServicio;
+    }
+
+    public void setNombreServicio(String nombreServicio) {
+        this.nombreServicio = nombreServicio;
+    }
+
+    public String getDetalleServicio() {
+        return detalleServicio;
+    }
+
+    public void setDetalleServicio(String detalleServicio) {
+        this.detalleServicio = detalleServicio;
+    }
+
+    public double getValorServicio() {
+        return valorServicio;
+    }
+
+    public void setValorServicio(double valorServicio) {
+        this.valorServicio = valorServicio;
+    }
+
+    public String getAprobado() {
         return aprobado;
     }
 
-    public void setAprobado(boolean aprobado) {
+    public void setAprobado(String aprobado) {
         this.aprobado = aprobado;
-    }
-
-    public String getOrden() {
-        return orden;
-    }
-
-    public void setOrden(String orden) {
-        this.orden = orden;
     }
 
     @Override
     public String toString() {
         return "RegistroProductoServicio{" + 
-                "idRegistro=" + idRegistro + 
-                ", producto=" + producto + 
-                ", servicio=" + servicio + 
+                "idOrden=" + idOrden + 
+                ", idRegistro=" + idRegistro + 
+                ", nombreProducto=" + nombreProducto + 
+                ", valorProducto=" + valorProducto + 
+                ", nombreServicio=" + nombreServicio + 
+                ", detalleServicio=" + detalleServicio + 
+                ", valorServicio=" + valorServicio + 
                 ", aprobado=" + aprobado + 
-                ", orden=" + orden + 
                 '}';
     }
-
-    
-    
-    
 }

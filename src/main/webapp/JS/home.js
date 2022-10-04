@@ -173,6 +173,7 @@ function mostrarOrdenes(listaOrdenes) {
                             '<li class="list-group-item"><strong>Realiza anticipo:  </strong>' + ordenMotoParsed.anticipo + '</li>' +
                             '<li class="list-group-item"><strong>Valor anticipo:  </strong>$' + ordenMotoParsed.valorAnticipo + '</li>' +
                             '<li id="orden-' + ordenMotoParsed.idOrden + '"class="orden-' + ordenMotoParsed.idOrden + ' list-group-item"><strong>Autorización prueba de ruta:  </strong>' + ordenMotoParsed.autorizacionRuta + '</li>' +
+                            '<li id="orden-registro-' + ordenMotoParsed.idOrden + '"class="orden-registro-' + ordenMotoParsed.idOrden + ' list-group-item"><strong>Servicios y productos por Orden</strong></li>' +
                             '<!--Cierra inicio de modal-->'+
                             '</ul>' +
                             '</div>' +
