@@ -1,5 +1,4 @@
 //Para llamar métodos. 
-
 $(document).ready(function () {
 
     obtenerListaMoto();
