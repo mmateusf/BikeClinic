@@ -4,10 +4,12 @@ package Test;
 
 import Beans.*;
 import Connection.DBConnection;
+import Controller.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
+
 
 /**
  *
@@ -18,13 +20,30 @@ public class OperacionesDB {
     public static void main(String[] args) {
         
         //Correcta con el tema del servidor al inicio.
-        conectarse();
+//        conectarse();s
         //seteo de datos con Upcasting
+        /*
         pruebaBeans();
         actualizarAdminstrador(1116547319, "Activo");
         listarEstado(4);
         ordenes();
+        UsuarioController usuario = new UsuarioController();
+        System.out.println(usuario.listarMecanicos());
+        */
+//        HVMotoController hvController = new HVMotoController();
+//        MotoController moto = new MotoController();
+//        System.out.println(moto.listarMotos());
+//          OrdenController ordenC = new OrdenController();
+//          System.out.println(ordenC.listarOrdenes());
+//        EstadoController estadoC = new EstadoController();
+//        System.out.println(estadoC.listarEstado());
+//       RegistroController registro = new RegistroController();
+//        System.out.println(registro.listarRegistros());
+       
     }
+      
+    
+    
     
     public static void verHV(){
          System.out.println("----------------------------------------");
@@ -36,21 +55,21 @@ public class OperacionesDB {
             
             while(rs.next()){
                 int idOrden = rs.getInt("Orden");
+                String placaMoto = rs.getString("placa");
                 String idCliente = rs.getString("cliente");
-                
-                String idMecanico = rs.getString("mecanico");
+                String idMecanico = rs.getString("Mecánico");
                 String motivo = rs.getString("motivo");
                 String documentos = rs.getString("documentos");
                 String anticipo = rs.getString("anticipo");
                 double valorAnticipo = rs.getDouble("valorAnticipo");
                 String autorizacionRuta = rs.getString("autorizacionRuta");
                 Date date = rs.getDate("fecha");
-                String idEstado = rs.getString("estado");
+                int idEstado = rs.getInt("idEstado");
                 String descripcionDiagnostico = rs.getString("descripcionDiagnostico");
-                String productoServicio = rs.getString("productoServicio");
+                String productoServicio = rs.getString("Productos para servicio");
                 String servicios = rs.getString("servicios");
-                String aprobadoCliente = rs.getString("aprobadoCliente");
-                String placaMoto = rs.getString("moto");
+                String aprobadoCliente = rs.getString("Aprobado por cliente");
+                
                
                 System.out.println("Seteado hv");
                 HVmoto orden = new HVmoto(idOrden, placaMoto, idCliente, idMecanico, motivo, documentos, anticipo, valorAnticipo, autorizacionRuta, date, idEstado, descripcionDiagnostico, productoServicio, servicios, aprobadoCliente);      
@@ -102,7 +121,7 @@ public class OperacionesDB {
      * Prueba para poder conectase, mediante metodo en sección de pruebas. 
      */
     
-    
+    /*
     public static void listarEstado(int idEstado){
         System.out.println("----------------------------------------");
         DBConnection conn = new DBConnection();
@@ -152,7 +171,7 @@ public class OperacionesDB {
         } finally {
             conn.desconectar();
         }
-    }
+    }*/
     
     
     public static void conectarse() {
@@ -184,9 +203,9 @@ public class OperacionesDB {
                 String anticipo = rs.getString("anticipo");
                 
                 
-                System.out.println("Seteado orden");
-                OrdenDeServicio orden = new OrdenDeServicio(idOrden, date, idCliente, idMecanico, placaMoto, motivo, documentos, anticipo, valorAnticipo, idEstado, descripcionDiagnostico, autorizacionRuta);
-                System.out.println(orden);                       
+//                System.out.println("Seteado orden");
+//                OrdenDeServicio orden = new OrdenDeServicio(idOrden, date, nombreCliente, nombreMecanico, placaMoto, motivo, descripcionDiagnostico, documentos, anticipo, valorAnticipo, autorizacionRuta, idEstado);
+//                System.out.println(orden);                       
             }
         } catch (SQLException ex) {
             System.out.println("No se pudo realizar la conexión de ver orden" + ex.getMessage());

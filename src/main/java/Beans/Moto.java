@@ -12,9 +12,10 @@ public class Moto {
     private String marca;
     private String modelo;
     private String annoRegistro;
-    private String idCliente;
-
-    public Moto(String placa, String idMotor, String idChasis, String marca, String modelo, String annoRegistro, String idCliente) {
+    private int idCliente;
+    private String nombreCliente;
+   
+    public Moto(String placa, String idMotor, String idChasis, String marca, String modelo, String annoRegistro, int idCliente, String nombreCliente) {
         this.placa = placa;
         this.idMotor = idMotor;
         this.idChasis = idChasis;
@@ -22,6 +23,8 @@ public class Moto {
         this.modelo = modelo;
         this.annoRegistro = annoRegistro;
         this.idCliente = idCliente;
+        this.nombreCliente = nombreCliente;
+        
     }
 
     public String getPlaca() {
@@ -72,17 +75,23 @@ public class Moto {
         this.annoRegistro = annoRegistro;
     }
 
-    public String getCliente() {
+    public int getIdCliente() {
         return idCliente;
     }
 
-    public void setCliente(String idCliente) {
+    public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
-    
-    
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
 
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    
     @Override
     public String toString() {
         return "Moto{" + 
@@ -92,8 +101,8 @@ public class Moto {
                 ", marca=" + marca + 
                 ", modelo=" + modelo + 
                 ", annoRegistro=" + annoRegistro + 
-                ", idCliente=" + idCliente + '}';
+                ", idCliente=" + idCliente + 
+                ", nombreCliente=" + nombreCliente + 
+                '}';
     }
-    
-    
 }
