@@ -3,56 +3,44 @@
     <head>
         <title>Página principal Taller.</title>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- CSS bootstrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"-->
+        <!--integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">-->
         <!-- Js bootstrap and jquery -->
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>-->
+        <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>-->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+        <!-- Directamente del los archivos -->
+        <script src="./JS/popper.min.js"></script>
+        <script src="./JS/jquery-3.6.1.min.js"></script>
+        <script src="./JS/bootstrap.bundle.min.js"></script>
+        <link href="./CSS/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="./CSS/footnav.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Propio del proyecto -->
         <script src="./JS/registrar.js"></script>
         <script src="./JS/home.js"></script>
-        
-        <!-- Probar igual que en login -->
+        <script src="./JS/home_1.js"></script>
 
 
-        <style>
-            /*            body {
-                            background: #e2d73b;
-                            background: linear-gradient(to right, #7c7c07, #fbf30d);
-                        }*/
-            .logo{
-                background-image: url(./img/moto.jpg);
-                background-position: center center;
-                border-radius: 60px;
-                box-shadow: 5px 4px 4px black;
-                margin-right: 0.5rem;
-            }
-
-            .titulo-card{
-                margin-top: 7rem;
-            }
-            footer {
-                text-align: center;
-            }
-        </style>
-
+        <link rel="icon" href="./img/casco.png">
     </head>
     <body>
         <!--Navigation-->
         <header class="mb-5">
             <nav class="navbar navbar-expand-md navbar-lg bg-light fixed-top mb-5">
                 <div class="container">
-
                     <a href="#" class="navbar-brand h4 nav-item">
                         <img class="logo mr-3"  src="./img/moto.jpg" width="60" alt="logo muestra">
                         Bike Clinic App
                     </a>
-
                     <ul class="navbar-nav ml-auto">
                         <!--<li id="user-name" class="nav-item d-flex-left mx-1 nav-link">Username</li> Aquí se puede dejar para desconectarse. -->
+                        <li class="nav-item d-flex-left mx-1"><a href="#agregarServicio" class="nav-link" data-bs-toggle="offcanvas">Agregar Servicio</a></li>
+                        <li class="nav-item d-flex-left mx-1"><a href="#agregarProducto" class="nav-link" data-bs-toggle="offcanvas">Agregar Producto</a></li>
                         <li class="nav-item d-flex-left"><a href="#registro" class="nav-link"  data-bs-toggle="offcanvas">Registrar Mecánico</a></li>
                         <li class="nav-item d-flex-left mx-1"><a href="#contactLogin" class="nav-link" data-bs-toggle="offcanvas">Contacto</a></li>
                         <li id="salir" class="badge badge-light">
@@ -71,7 +59,7 @@
                 </div>
             </nav>
         </header>
-        <main class="container my-5">
+        <main class="container" >
             <!-- Titulo Muestra motos -->
             <!-- Zona de tarjetas de HVs -->
             <div class="titulo-card bg-dark container rounded ">
@@ -80,14 +68,15 @@
             <!-- Tarjetas -->
             <section  class="tarjetero container d-flex flex-wrap my-1 bg-light border border-1 border-ligth border-radius  rounded">
 
-
             </section>
             <!-- Modales -->
             <section class="modale">    
             </section>
             <!-- Tabla de mecánicos -->
+            <br/>
             <section>
-                <article class=" container table-responsive ">
+                <article class=" container table-responsive bg-light rounded border border-1 border-ligth">
+                    <h3 class="mt-3 text-center">Mecánicos Registrados</h3>
                     <table class="table rounded mt-3 container table table-striped table-hover">
                         <thead class="table-dark  align-middle">
                             <tr class="table-head">
@@ -99,7 +88,63 @@
                                 <!-- Rol, password no se muestra y nombre y apellidos se combina en una sola. -->
                             </tr>
                         </thead>
-                        <tbody id="tbody" class="align-middle">
+                        <tbody id="tbody" class="align-middle mb-5">
+                            <!-- Aquí inserta el JS -->
+                        </tbody>
+                    </table>
+
+                </article>
+            </section>
+            <br/>
+            <section>
+                <article class=" container table-responsive bg-light rounded border border-1 border-ligth">
+                    <a class=" nav-link" data-bs-toggle="collapse" href="#collapse1">
+                    <h3 class="mt-3 text-center">Servicios Registrados</h3>
+                    <div class="container text-center text-muted">
+                        Presione para ver los servicios
+                    </div>
+                    </a>
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <table class="table rounded mt-3 container table table-striped table-hover">
+                            <thead class="table-dark  align-middle">
+                                <tr class="table-head">
+                                    <th scope="col">Id Usuario</th>
+                                    <th scope="col">Nombre Mecánico</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Número de contacto</th>
+                                    <th scope="col">Estado</th>
+                                    <!-- Rol, password no se muestra y nombre y apellidos se combina en una sola. -->
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyServicios" class="align-middle">
+                                <!-- Aquí inserta el JS -->
+                                
+                            </tbody>
+                        </table>
+                </article>
+            </section>
+            <br/>
+            <section>
+                <article class=" container table-responsive bg-light rounded border border-1 border-ligth">
+                    <a class=" nav-link" data-bs-toggle="collapse" href="#collapse2">
+                    <h3 class="mt-3 text-center">Productos Registrados</h3>
+                    <div class="container text-center text-muted">
+                        Presione para ver los productos
+                    </div>
+                    </a>
+                    <div id="collapse2" class="panel-collapse collapse">
+                    <table class="table rounded mt-3 container table table-striped table-hover">
+                        <thead class="table-dark  align-middle">
+                            <tr class="table-head">
+                                <th scope="col">Id Usuario</th>
+                                <th scope="col">Nombre Mecánico</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Número de contacto</th>
+                                <th scope="col">Estado</th>
+                                <!-- Rol, password no se muestra y nombre y apellidos se combina en una sola. -->
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyProductos" class="align-middle">
                             <!-- Aquí inserta el JS -->
                         </tbody>
                     </table>
@@ -200,6 +245,77 @@
             </div>
         </div>
 
+        <!-- Off-canvas agregar-->
+
+        <!-- Registro servicios off-canvas -->
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="agregarServicio"
+             aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Agregar Servicio.</h5>
+                <!-- Para cerrar -->
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div>
+                    Ingrense el nuevo servicio. <br> Gracias.
+                </div>
+                <div class="container m-1">
+                    <form action="#btnAddServicio" method="post">
+                        <p id="idLblServicio" class="form-label mt-2 mb-1 d-none"><strong id="idLblServicioText">Id del servicios</strong></p>
+                        <label for="nameServicio" class="form-label mt-3 mb-2">Ingrese nombre del servicio</label>
+                        <input type="text" class=" form-control mb-2" name="nameServicio"
+                               id="nameServicio" placeholder="Nombre del servicio" required>
+                        <label for="desServicio" class="form-label mb-2">Realice una corta descripción del servicio</label>
+                        <textarea type="textarea" class=" form-control mb-2" name="desServicio" id="desServicio"
+                                  required>
+                        </textarea>
+                        <label for="valServicio" class="form-label mb-2">Realice una corta descripción del servicio</label>
+                        <input type="number" class=" form-control mb-2" name="valServicio"
+                               id="valServicio" placeholder="Valor sin puntos o comas" required>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block mt-2"
+                                    id="btnAddServicio">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Registro producto offcanvas -->
+
+        <div class="offcanvas offcanvas-start " tabindex="-1" id="agregarProducto"
+             aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Agregar producto.</h5>
+                <!-- Para cerrar -->
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div>
+                    Por favor registre los datos del nuevo producto. <br> Gracias.
+                </div>
+                <div class="container m-1">
+                    <form action="#btnAddProducto" method="post">
+                        <label for="nameProducto" class="form-label mt-3 mb-2">Ingrese el nombre del producto</label>
+                        <input type="text" class=" form-control mb-2" name="nameProducto"
+                               id="nameProducto" placeholder="Nombre del producto" required>
+                        <label for="valProducto" class="form-label mb-2">Ingrese el valor del producto</label>
+                        <input type="number" class=" form-control mb-2" name="valProducto" id="valProducto"
+                               placeholder="Sin puntos o comas" required>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block mt-2"
+                                    id="btnAddProducto">Agregar</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
 
         <!-- Contacto -->
 
@@ -246,6 +362,6 @@
                 <a href="#" class="btn btn-light">&copy;Bike Clinic App</a>
             </div>
         </footer>
-        <script src="./JS/home_1.js"></script>
+
     </body>
 </html>

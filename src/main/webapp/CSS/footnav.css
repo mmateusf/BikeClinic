@@ -1,0 +1,30 @@
+.logo{
+    background-image: url(./img/moto.jpg);
+    background-position: center center;
+    border-radius: 60px;
+    box-shadow: 5px 4px 4px black;
+    margin-right: 0.5rem;
+}
+
+main{
+    margin-top: 7rem;
+    margin-bottom: 4rem;
+
+}
+.resumen{
+    width: 15rem;
+    margin-left: 2rem;
+}
+
+footer {
+    text-align: center;
+    margin-top: 10rem;
+}
+.card-border:hover{
+    transform: scale(1.05);
+}
+
+.collapse{
+overflow-y:scroll;
+height:400px;
+}
