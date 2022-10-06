@@ -52,10 +52,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-cliente-tab" data-bs-toggle="tab" data-bs-target="#nav-cliente" type="button" role="tab" aria-controls="nav-cliente" aria-selected="true">Registro cliente</button>
-                        <button class="nav-link" id="nav-moto-tab" data-bs-toggle="tab" data-bs-target="#nav-moto" type="button" role="tab" aria-controls="nav-moto" aria-selected="false">Registro moto</button>
-                        <button class="nav-link" id="nav-motivo-tab" data-bs-toggle="tab" data-bs-target="#nav-motivo" type="button" role="tab" aria-controls="nav-motivo" aria-selected="false">Motivo de ingreso</button>
-                        <button class="nav-link" id="nav-estado-tab" data-bs-toggle="tab" data-bs-target="#nav-estado" type="button" role="tab" aria-controls="nav-estado" aria-selected="false" >Estado vehículo</button>
-                        <button class="nav-link" id="nav-servicio-tab" data-bs-toggle="tab" data-bs-target="#nav-servicio" type="button" role="tab" aria-controls="nav-servicio" aria-selected="false" >Servicios a realizar</button>
+                        <button class="nav-link" id="nav-moto-tab" data-bs-toggle="tab" data-bs-target="#nav-moto" type="button" role="tab" aria-controls="nav-moto" aria-selected="false" disabled>Registro moto</button>
+                        <button class="nav-link" id="nav-motivo-tab" data-bs-toggle="tab" data-bs-target="#nav-motivo" type="button" role="tab" aria-controls="nav-motivo" aria-selected="false" disabled>Motivo de ingreso</button>
+                        <button class="nav-link" id="nav-estado-tab" data-bs-toggle="tab" data-bs-target="#nav-estado" type="button" role="tab" aria-controls="nav-estado" aria-selected="false" disabled>Estado vehículo</button>
+                        <button class="nav-link" id="nav-servicio-tab" data-bs-toggle="tab" data-bs-target="#nav-servicio" type="button" role="tab" aria-controls="nav-servicio" aria-selected="false" disabled>Servicios a realizar</button>
                     </div>
                 </nav>
 
@@ -780,7 +780,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                             </label>
                                         </div>
                                     </div>
-
                                     <div class="col-2 mb-3">
                                         <p>Cadena :</p>
                                         <div class="form-check">
@@ -811,7 +810,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                             </label>
                                         </div>
                                     </div>
-
                                     <div class=" mb-3">
                                         <input type="submit" value = "Registrar estado" class = "btn btn-outline-primary">
                                     </div>
@@ -826,7 +824,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                     </tr>
                                 </thead>
                                 <tbody id="tbodyMecEstado" class="align-middle">
-
                                 </tbody>
                             </table>
                             <br/>
@@ -850,7 +847,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                             <!-- Aquí se agregan los datos obtenidos de la BD -->
                                         </select>
                                         <input id="btnServicioAdd" type="submit" value = "Agregar servicio" class = "btn btn-outline-primary">
-
                                     </div>  
                                     <div class="col-6 mb-4">
                                         <label for = "producto" class = "form-label ">
@@ -864,7 +860,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                         </select>
                                         <input  id="btnProductoAdd" type="submit" value = "Agregar producto" class = "btn btn-outline-primary">
                                     </div>
-
                                     <div class="mb-3">
                                         <label for="dx" class = "form-label">
                                             Descripcion de diagnóstico:
@@ -911,11 +906,46 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 </div>
             </section>
         </main>
+        <!--OffCanva para realizar contacto.-->
+
+        <div class="offcanvas offcanvas-start " tabindex="-1" id="contactLogin"
+             aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Contacto.</h5>
+                <!-- Para cerrar -->
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div>
+                    Por favor registre los datos solicitados para poder resolver su incoveniente de la
+                    manera más pronta. <br> Gracias.
+                </div>
+                <div class="container m-1">
+                    <form action="#btnContact" method="post">
+                        <label for="nameContact" class="form-label mt-3 mb-2">Ingrese su nombre</label>
+                        <input type="text" class=" form-control mb-2" name="nameContact"
+                               id="nameContact" placeholder="Su nombre completo" required>
+                        <label for="idContact" class="form-label mb-2">Ingrese su número de
+                            identificación</label>
+                        <input type="number" class=" form-control mb-2" name="idContact" id="idContact"
+                               placeholder="Sin puntos o espacios" required>
+                        <label for="textContact">Describa el motivo</label>
+
+                        <textarea type="textarea" class=" form-control mb-2" name="textContact"
+                                  id="nameContact" required></textarea>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block mt-2"
+                                    id="btnContact">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <footer class="footer bg-light mt-4 fixed-bottom">
             <div >
                 <a href="#" class="btn btn-light ">&copy;Bike Clinic App</a>
             </div>
         </footer>
-
     </body>
 </html>
