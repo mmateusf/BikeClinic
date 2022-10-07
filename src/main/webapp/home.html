@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html>
     <head>
         <title>Página principal Taller.</title>
@@ -99,26 +99,24 @@
             <section>
                 <article class=" container table-responsive bg-light rounded border border-1 border-ligth">
                     <a class=" nav-link" data-bs-toggle="collapse" href="#collapse1">
-                    <h3 class="mt-3 text-center">Servicios Registrados</h3>
-                    <div class="container text-center text-muted">
-                        Presione para ver los servicios
-                    </div>
+                        <h3 class="mt-3 text-center">Servicios Registrados</h3>
+                        <div class="container text-center text-muted">
+                            Presione para ver los servicios
+                        </div>
                     </a>
                     <div id="collapse1" class="panel-collapse collapse">
                         <table class="table rounded mt-3 container table table-striped table-hover">
                             <thead class="table-dark  align-middle">
                                 <tr class="table-head">
-                                    <th scope="col">Id Usuario</th>
-                                    <th scope="col">Nombre Mecánico</th>
-                                    <th scope="col">Correo</th>
-                                    <th scope="col">Número de contacto</th>
-                                    <th scope="col">Estado</th>
-                                    <!-- Rol, password no se muestra y nombre y apellidos se combina en una sola. -->
+                                    <th scope="col">Id servicio</th>
+                                    <th scope="col">Nombre servicio</th>
+                                    <th scope="col">Detalle del servicio</th>
+                                    <th scope="col">Valor del servicio</th>
                                 </tr>
                             </thead>
                             <tbody id="tbodyServicios" class="align-middle">
                                 <!-- Aquí inserta el JS -->
-                                
+
                             </tbody>
                         </table>
                 </article>
@@ -127,27 +125,25 @@
             <section>
                 <article class=" container table-responsive bg-light rounded border border-1 border-ligth">
                     <a class=" nav-link" data-bs-toggle="collapse" href="#collapse2">
-                    <h3 class="mt-3 text-center">Productos Registrados</h3>
-                    <div class="container text-center text-muted">
-                        Presione para ver los productos
-                    </div>
+                        <h3 class="mt-3 text-center">Productos Registrados</h3>
+                        <div class="container text-center text-muted">
+                            Presione para ver los productos
+                        </div>
                     </a>
                     <div id="collapse2" class="panel-collapse collapse">
-                    <table class="table rounded mt-3 container table table-striped table-hover">
-                        <thead class="table-dark  align-middle">
-                            <tr class="table-head">
-                                <th scope="col">Id Usuario</th>
-                                <th scope="col">Nombre Mecánico</th>
-                                <th scope="col">Correo</th>
-                                <th scope="col">Número de contacto</th>
-                                <th scope="col">Estado</th>
-                                <!-- Rol, password no se muestra y nombre y apellidos se combina en una sola. -->
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyProductos" class="align-middle">
-                            <!-- Aquí inserta el JS -->
-                        </tbody>
-                    </table>
+                        <table class="table rounded mt-3 container table table-striped table-hover">
+                            <thead class="table-dark  align-middle">
+                                <tr class="table-head">
+                                    <th scope="col">Id Producto</th>
+                                    <th scope="col">Nombre producto</th>
+                                    <th scope="col">Valor producto</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyProductos" class="align-middle">
+                                <!-- Aquí inserta el JS -->
+                            </tbody>
+                        </table>
 
                 </article>
             </section>
@@ -246,13 +242,12 @@
         </div>
 
         <!-- Off-canvas agregar-->
-
         <!-- Registro servicios off-canvas -->
 
         <div class="offcanvas offcanvas-start" tabindex="-1" id="agregarServicio"
-             aria-labelledby="offcanvasExampleLabel">
+             aria-labelledby="offcanvasExampleServicio">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Agregar Servicio.</h5>
+                <h5 class="offcanvas-title" id="offcanvasExampleServicio">Agregar Servicio.</h5>
                 <!-- Para cerrar -->
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
@@ -262,15 +257,14 @@
                     Ingrense el nuevo servicio. <br> Gracias.
                 </div>
                 <div class="container m-1">
-                    <form action="#btnAddServicio" method="post">
+                    <form id="form-servicio" action="#btnAddServicio" method="post">
                         <p id="idLblServicio" class="form-label mt-2 mb-1 d-none"><strong id="idLblServicioText">Id del servicios</strong></p>
                         <label for="nameServicio" class="form-label mt-3 mb-2">Ingrese nombre del servicio</label>
                         <input type="text" class=" form-control mb-2" name="nameServicio"
                                id="nameServicio" placeholder="Nombre del servicio" required>
                         <label for="desServicio" class="form-label mb-2">Realice una corta descripción del servicio</label>
                         <textarea type="textarea" class=" form-control mb-2" name="desServicio" id="desServicio"
-                                  required>
-                        </textarea>
+                                  required></textarea>
                         <label for="valServicio" class="form-label mb-2">Realice una corta descripción del servicio</label>
                         <input type="number" class=" form-control mb-2" name="valServicio"
                                id="valServicio" placeholder="Valor sin puntos o comas" required>
@@ -278,6 +272,9 @@
                             <button type="submit" class="btn btn-primary btn-lg btn-block mt-2"
                                     id="btnAddServicio">Agregar</button>
                         </div>
+                        <!--Alert de submit-->
+                        <div id="register-success-ser" class="alert alert-success d-none" role="alert">Servicio registrado de manera satisfactoria.</div>
+                        <div id="register-error-ser" class="alert alert-danger d-none" role="alert">No se pudo registrar el servicio, vuelva a intentar.</div>
                     </form>
                 </div>
             </div>
@@ -285,9 +282,9 @@
         <!-- Registro producto offcanvas -->
 
         <div class="offcanvas offcanvas-start " tabindex="-1" id="agregarProducto"
-             aria-labelledby="offcanvasExampleLabel">
+             aria-labelledby="offcanvasExampleProducto">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Agregar producto.</h5>
+                <h5 class="offcanvas-title" id="offcanvasExampleProducto">Agregar producto.</h5>
                 <!-- Para cerrar -->
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
@@ -297,7 +294,7 @@
                     Por favor registre los datos del nuevo producto. <br> Gracias.
                 </div>
                 <div class="container m-1">
-                    <form action="#btnAddProducto" method="post">
+                    <form id="form-producto" action="#btnAddProducto" method="post">
                         <label for="nameProducto" class="form-label mt-3 mb-2">Ingrese el nombre del producto</label>
                         <input type="text" class=" form-control mb-2" name="nameProducto"
                                id="nameProducto" placeholder="Nombre del producto" required>
@@ -309,7 +306,9 @@
                             <button type="submit" class="btn btn-primary btn-lg btn-block mt-2"
                                     id="btnAddProducto">Agregar</button>
                         </div>
-
+                        <!--Alert de submit-->
+                        <div id="register-success-pro" class="alert alert-success d-none" role="alert">Producto registrado de manera satisfactoria.</div>
+                        <div id="register-error-pro" class="alert alert-danger d-none" role="alert">No se pudo registrar el producto, vuelva a intentar.</div>
                     </form>
 
                 </div>

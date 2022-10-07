@@ -12,6 +12,17 @@ $(document).ready(function () {
         console.log("Funciona el botón ese.");
     });
 
+    $("#form-servicio").submit(function (event) {
+        event.preventDefault();
+        registrarServicio();
+
+    });
+
+    $("#form-producto").submit(function (event) {
+        event.preventDefault();
+        registrarProducto();
+
+    });
 });
 
 //Mecáncos
@@ -173,7 +184,7 @@ function mostrarOrdenes(listaOrdenes) {
                             '<li class="list-group-item"><strong>Valor anticipo:  </strong>$' + ordenMotoParsed.valorAnticipo + '</li>' +
                             '<li id="orden-' + ordenMotoParsed.idOrden + '"class="orden-' + ordenMotoParsed.idOrden + ' list-group-item"><strong>Autorización prueba de ruta:  </strong>' + ordenMotoParsed.autorizacionRuta + '</li>' +
                             '<li id="orden-registro-' + ordenMotoParsed.idOrden + '"class="orden-registro-' + ordenMotoParsed.idOrden + ' list-group-item"><strong>Servicios y productos por Orden</strong></li>' +
-                            '<!--Cierra inicio de modal-->'+
+                            '<!--Cierra inicio de modal-->' +
                             '</ul>' +
                             '</div>' +
                             '</div>' +
@@ -229,3 +240,143 @@ function cambiarEstadoMecanico() {
     });
 }
 
+//Servicios
+function registrarServicio() {
+
+    let nombreServicio = $("#nameServicio").val();
+    let detalleServicio = $("#desServicio").val();
+    let valorServicio = $("#valServicio").val();
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletServicioRegistrar",
+        data: $.param({
+            nombreServicio: nombreServicio,
+            detalleServicio: detalleServicio,
+            valorServicio: valorServicio
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                $("#register-success-ser").removeClass("d-none");
+
+
+            } else {
+                $("#register-error-ser").removeClass("d-none");
+            }
+        }
+    });
+}
+
+
+function obtenerServicios() {
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletServiciosListar",
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                mostrarServicios(parsedResult);
+
+            } else {
+                console.log("Hubo un problema al llamar los datos de lista servicios");
+            }
+        }
+    });
+}
+
+
+function mostrarServicios(listaServicios) {
+
+
+    let tabla = "";
+    $.each(listaServicios, function (index, servicio) {
+
+        servicioParsed = JSON.parse(servicio);
+        tabla += '<tr>' +
+                '<td>' + servicioParsed.idServicio + '</td>' +
+                '<td>' + servicioParsed.nombreServicio + '</td>' +
+                '<td>' + servicioParsed.detalleServicio + '</td>' +
+                '<td>' + servicioParsed.valorServicio + '</td>' +
+                '</tr>';
+    });
+
+    $('#tbodyServicios').html(tabla);
+}
+
+//todo tooodoo
+function actualizarServicio() {
+
+}
+
+//Productos
+function registrarProducto() {
+    let idProducto;
+    let nombre = $("#nameProducto").val();
+    let valorProducto = $("#valProducto").val();
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletProductoRegistrar",
+        data: $.param({
+            idProducto: idProducto,
+            nombre: nombre,
+            valorProducto: valorProducto
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                $("#register-success-pro").removeClass("d-none");
+
+            } else {
+                $("#register-error-pro").removeClass("d-none");
+            }
+        }
+    });
+
+}
+
+
+function obtenerProductos() {
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletProductosListar",
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                mostrarProductos(parsedResult);
+
+            } else {
+                console.log("Hubo un problema al llamar los datos de lista productos");
+            }
+        }
+    });
+}
+
+
+function mostrarProductos(listaProductos) {
+
+    let tabla = "";
+    $.each(listaProductos, function (index, producto) {
+
+        productoParsed = JSON.parse(producto);
+        tabla += '<tr>' +
+                '<td>' + productoParsed.idProducto + '</td>' +
+                '<td>' + productoParsed.nombre + '</td>' +
+                '<td>' + productoParsed.valorProducto + '</td>' +
+                '</tr>';
+    });
+
+    $('#tbodyProductos').html(tabla);
+}
+
+//todoooo todooo
+function actualizarProducto() {
+
+}

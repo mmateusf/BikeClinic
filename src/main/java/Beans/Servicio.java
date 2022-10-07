@@ -11,6 +11,14 @@ public class Servicio {
     private String detalleServicio;
     private double valorServicio;
 
+    public Servicio(String nombreServicio, String detalleServicio, double valorServicio) {
+        
+        this.nombreServicio = nombreServicio;
+        this.detalleServicio = detalleServicio;
+        this.valorServicio = valorServicio;
+    }
+    
+    
     public Servicio(int idServicio, String nombreServicio, String detalleServicio, double valorServicio) {
         this.idServicio = idServicio;
         this.nombreServicio = nombreServicio;
