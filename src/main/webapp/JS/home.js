@@ -4,13 +4,16 @@ $(document).ready(function () {
     obtenerListaMoto();
     obtenerListaOrdenes();
     obtenerListaMecanicos();
+    obtenerServicios();
+    obtenerProductos();
     cambiarEstadoMecanico();
+    
 
-    $("#btnActualizar").click(function (event) {
-        event.preventDefault();
-        obtenerListaMecanicos();
-        console.log("Funciona el botón ese.");
-    });
+//    $("#btnActualizar").click(function (event) {
+//        event.preventDefault();
+//        obtenerListaMecanicos();
+//        console.log("Funciona el botón ese.");
+//    });
 
     $("#form-servicio").submit(function (event) {
         event.preventDefault();
