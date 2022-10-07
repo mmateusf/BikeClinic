@@ -48,7 +48,7 @@ public class ProductoController implements IProductoController {
 
     @Override
     public String obtenerProductos() {
-        
+
         //Para los Json
         Gson gson = new Gson();
         DBConnection conn = new DBConnection();
@@ -65,7 +65,7 @@ public class ProductoController implements IProductoController {
                 String nombre = rs.getString("nombre");
                 double valorProducto = rs.getDouble("valorProducto");
 //                Se crea objeto y se vuelve json.
-                Producto productoC = new Producto( idProducto, nombre, valorProducto);
+                Producto productoC = new Producto(idProducto, nombre, valorProducto);
 
                 //Para agregarle
                 listaProductos.add(gson.toJson(productoC));
@@ -81,8 +81,22 @@ public class ProductoController implements IProductoController {
     }
 
     @Override
-    public String actualizarProducto() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String actualizarProducto(int idProducto, String nombre, double valorProducto) {
+
+        DBConnection conn = new DBConnection();
+        String sql = "UPDATE productos set nombre= '" + nombre + "', valorProducto = " + valorProducto + "WHERE idProducto = " + idProducto;
+        try {
+            Statement st = conn.conectar().createStatement();
+            st.executeUpdate(sql);
+
+            return "true";
+        } catch (Exception e) {
+            System.out.println("No se  pudo realizar actualización de producto controler por: " + e.getMessage());
+        } finally {
+            conn.desconectar();
+        }
+
+        return "false";
     }
 
 }

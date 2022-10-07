@@ -21,14 +21,17 @@
         <link href="./CSS/footnav.css" rel="stylesheet" type="text/css"/>
 
         <!-- Propio del proyecto -->
+
         <script src="./JS/registrar.js"></script>
         <script src="./JS/home.js"></script>
         <script src="./JS/home_1.js"></script>
 
 
+
         <link rel="icon" href="./img/casco.png">
     </head>
     <body>
+
         <!--Navigation-->
         <header class="mb-5">
             <nav class="navbar navbar-expand-md navbar-lg bg-light fixed-top mb-5">
@@ -59,6 +62,7 @@
                 </div>
             </nav>
         </header>
+
         <main class="container" >
             <!-- Titulo Muestra motos -->
             <!-- Zona de tarjetas de HVs -->
@@ -90,6 +94,7 @@
                         </thead>
                         <tbody id="tbody" class="align-middle mb-5">
                             <!-- Aquí inserta el JS -->
+
                         </tbody>
                     </table>
 
@@ -112,6 +117,7 @@
                                     <th scope="col">Nombre servicio</th>
                                     <th scope="col">Detalle del servicio</th>
                                     <th scope="col">Valor del servicio</th>
+                                    <th scope="col">Aciones</th>
                                 </tr>
                             </thead>
                             <tbody id="tbodyServicios" class="align-middle">
@@ -121,7 +127,39 @@
                         </table>
                 </article>
             </section>
-            <br/>
+            <section>   
+                <!-- Actualizar servicios -->
+
+                <!--Alert de submit-->
+                <div id="register-success-serAc" class="mt-3 alert alert-success alert-dismissible fade show d-none" role="alert">
+                    Servicio actualizado de manera satisfactoria.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div id="register-error-serAc" class=" mt-3 alert alert-warning alert-dismissible fade show d-none" role="alert">
+                    No se pudo actualizar el servicio, vuelva a intentar.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <form id="form-servicio-actualizar"  class="d-none my-3">
+                    <h5 class="mb-2">Modifique los campos a actualizar</h5>
+                    <label for="idLblServicioAc" class="form-label mt-2 mb-2"><strong> servicio</strong></label>
+                    <input type="number" class=" form-control mb-2" name="idLblServicioAc"
+                           id="idLblServicioAc"  disabled>
+                    <label for="nameServicioAc" class="form-label mb-2"><strong> nombre del servicio</strong></label>
+                    <input type="text" class=" form-control mb-2" name="nameServicioAc"
+                           id="nameServicioAc"  required>
+                    <label for="desServicioAc" class="form-label mb-2"><strong>Realice una corta descripción del servicio</strong></label>
+                    <textarea type="textarea" class=" form-control mb-2" name="desServicioAc" id="desServicioAc"
+                              required></textarea>
+                    <label for="valServicioAc" class="form-label mb-2"><strong>Realice una corta descripción del servicio</strong></label>
+                    <input type="number" class=" form-control mb-2" name="valServicioAc"
+                           id="valServicioAc" required>
+                    <div class="d-grid">
+                        <button class="btn btn-primary  btn-block mt-2 btnActServicioAc"
+                                id="btnActServicioAc" >Actualizar Registro de Servicio</button>
+                    </div>
+                </form>
+                <br/>
+            </section>
             <section>
                 <article class=" container table-responsive bg-light rounded border border-1 border-ligth">
                     <a class=" nav-link" data-bs-toggle="collapse" href="#collapse2">
@@ -137,7 +175,7 @@
                                     <th scope="col">Id Producto</th>
                                     <th scope="col">Nombre producto</th>
                                     <th scope="col">Valor producto</th>
-
+                                    <th scope="col">Aciones</th>
                                 </tr>
                             </thead>
                             <tbody id="tbodyProductos" class="align-middle">
@@ -146,6 +184,36 @@
                         </table>
 
                 </article>
+            </section>
+            <section>   
+                <!-- Actualizar productos -->
+
+                <!--Alert de submit-->
+                <div id="register-success-proAc" class="mt-3 alert alert-success alert-dismissible fade show d-none" role="alert">
+                    Producto actualizado de manera satisfactoria.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div id="register-error-proAc" class=" mt-3 alert alert-warning alert-dismissible fade show d-none" role="alert">
+                    No se pudo actualizar el servicio, vuelva a intentar.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <form id="form-producto-actualizar"  class="d-none my-3">
+                    <h5 class="mb-2">Modifique los campos a actualizar</h5>
+                    <label for="idLblProductoAc" class="form-label mt-2 mb-2"><strong>ID producto</strong></label>
+                    <input type="number" class=" form-control mb-2" name="idLblProductoAc"
+                           id="idLblProductoAc"  disabled>
+                    <label for="nameProductoAc" class="form-label mb-2"><strong>Ingrese nombre del producto</strong></label>
+                    <input type="text" class=" form-control mb-2" name="nameProductoAc"
+                           id="nameProductoAc"  required>
+                    <label for="valProductoAc" class="form-label mb-2"><strong>Realice una corta descripción del producto</strong></label>
+                    <input type="number" class=" form-control mb-2" name="valProductoAc"
+                           id="valProductoAc" required>
+                    <div class="d-grid">
+                        <button class="btn btn-primary  btn-block mt-2 btnActProductoAc"
+                                id="btnActProductoAc" >Actualizar Registro de Producto</button>
+                    </div>
+                </form>
+                <br/>
             </section>
         </main>
 
@@ -269,7 +337,7 @@
                         <input type="number" class=" form-control mb-2" name="valServicio"
                                id="valServicio" placeholder="Valor sin puntos o comas" required>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block mt-2"
+                            <button type="button" class="btn btn-primary btn-lg btn-block mt-2"
                                     id="btnAddServicio">Agregar</button>
                         </div>
                         <!--Alert de submit-->

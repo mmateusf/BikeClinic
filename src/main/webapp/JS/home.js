@@ -7,26 +7,93 @@ $(document).ready(function () {
     obtenerServicios();
     obtenerProductos();
     cambiarEstadoMecanico();
-    
+    datosToServicio();
+    datosToProducto();
 
-//    $("#btnActualizar").click(function (event) {
-//        event.preventDefault();
-//        obtenerListaMecanicos();
-//        console.log("Funciona el botón ese.");
-//    });
 
+//Registrar servicio offcanvas
     $("#form-servicio").submit(function (event) {
         event.preventDefault();
         registrarServicio();
 
     });
-
+//Registrar producto offcanvas
     $("#form-producto").submit(function (event) {
         event.preventDefault();
         registrarProducto();
 
     });
+
+
 });
+function datosToServicio() {
+    let idServicio;
+    let nombreServicio;
+    let valorServicio;
+
+    $(document).on('click', '.btn-edit-servicio', function (event) {
+        event.preventDefault();
+        idServicio = $(this).parent().parent().children().first().text();
+        nombreServicio = $(this).parent().parent().children().first().next().text();
+        detalleServicio = $(this).parent().parent().children().first().next().next().text();
+        valorServicio = $(this).parent().parent().children().first().next().next().next().text();
+        console.log($(this).parent().parent().children().first().text());
+
+        $('#form-servicio-actualizar').removeClass('d-none');
+
+        $('#idLblServicioAc').val(idServicio);
+        $('#nameServicioAc').val(nombreServicio);
+        $('#desServicioAc').val(detalleServicio);
+        $('#valServicioAc').val(valorServicio);
+
+        $(document).on('click', '#btnActServicioAc', function (event) {
+            event.preventDefault();
+            console.log(document.getElementById("idLblServicioAc").value);
+            idServicio = document.getElementById("idLblServicioAc").value;
+            nombreServicio = document.getElementById("nameServicioAc").value;
+            detalleServicio = document.getElementById("desServicioAc").value;
+            valorServicio = document.getElementById("valServicioAc").value;
+            actualizarServicio(idServicio, nombreServicio, detalleServicio, valorServicio);
+            $('#form-servicio-actualizar').addClass('d-none');
+
+            console.log($(this).parent().parent().children().first().text());
+        });
+    });
+}
+
+
+//Actualizar botón
+function datosToProducto() {
+    let idProducto;
+    let nombre;
+    let valorProducto;
+
+    $(document).on('click', '.btn-edit-producto', function (event) {
+        event.preventDefault();
+        idProducto = $(this).parent().parent().children().first().text();
+        nombre = $(this).parent().parent().children().first().next().text();
+        valorProducto = $(this).parent().parent().children().first().next().next().text();
+        console.log($(this).parent().parent().children().first().text());
+
+        $('#form-producto-actualizar').removeClass('d-none');
+
+        $('#idLblProductoAc').val(idProducto);
+        $('#nameProductoAc').val(nombre);
+        $('#valProductoAc').val(valorProducto);
+
+        $(document).on('click', '#btnActProductoAc', function (event) {
+            event.preventDefault();
+            console.log(document.getElementById("idLblProductoAc").value);
+            idProducto = document.getElementById("idLblProductoAc").value;
+            nombre = document.getElementById("nameProductoAc").value;
+            valorProducto = document.getElementById("valProductoAc").value;
+            actualizarProducto(idProducto, nombre, valorProducto);
+            $('#form-producto-actualizar').addClass('d-none');
+
+            console.log($(this).parent().parent().children().first().text());
+        });
+    });
+}
 
 //Mecáncos
 function obtenerListaMecanicos() {
@@ -294,7 +361,6 @@ function obtenerServicios() {
 
 function mostrarServicios(listaServicios) {
 
-
     let tabla = "";
     $.each(listaServicios, function (index, servicio) {
 
@@ -304,23 +370,48 @@ function mostrarServicios(listaServicios) {
                 '<td>' + servicioParsed.nombreServicio + '</td>' +
                 '<td>' + servicioParsed.detalleServicio + '</td>' +
                 '<td>' + servicioParsed.valorServicio + '</td>' +
+                '<td><button value="actualizar" title="actualizar" class="btn btn-primary btn-edit-servicio" id="btn-edit-servicio">Actualizar</button></td>' +
                 '</tr>';
     });
 
     $('#tbodyServicios').html(tabla);
 }
 
-//todo tooodoo
-function actualizarServicio() {
 
+//todo tooodoo
+function actualizarServicio(idServicio, nombreServicio, detalleServicio, valorServicio) {
+///revisar este tema del boton
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletServicioActualizar",
+        data: $.param({
+            idServicio: idServicio,
+            nombreServicio: nombreServicio,
+            detalleServicio: detalleServicio,
+            valorServicio: valorServicio
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                $("#register-success-serAc").removeClass("d-none");
+                $('#form-servicio-actualizar').addClass('d-none');
+                console.log("actualización de servicio correcta");
+                obtenerServicios();
+            } else {
+                $("#register-error-serAc").removeClass("d-none");
+                console.log("Hubo un problema al actualizar los datos del servicio: " + idServicio);
+            }
+        }
+    });
 }
 
 //Productos
 function registrarProducto() {
-    
+
     let nombre = $("#nameProducto").val();
     let valorProducto = $("#valProducto").val();
-
     $.ajax({
         type: "GET",
         dataType: "html",
@@ -333,13 +424,11 @@ function registrarProducto() {
             let parsedResult = JSON.parse(result);
             if (parsedResult !== false) {
                 $("#register-success-pro").removeClass("d-none");
-
             } else {
                 $("#register-error-pro").removeClass("d-none");
             }
         }
     });
-
 }
 
 
@@ -372,6 +461,7 @@ function mostrarProductos(listaProductos) {
                 '<td>' + productoParsed.idProducto + '</td>' +
                 '<td>' + productoParsed.nombre + '</td>' +
                 '<td>' + productoParsed.valorProducto + '</td>' +
+                '<td><button value="actualizar" title="actualizar" class="btn btn-primary btn-edit-producto" id="btn-edit-servicio">Actualizar</button></td>' +
                 '</tr>';
     });
 
@@ -379,6 +469,28 @@ function mostrarProductos(listaProductos) {
 }
 
 //todoooo todooo
-function actualizarProducto() {
+function actualizarProducto(idProducto, nombre,  valorProducto) {
 
+$.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletProductoActualizar",
+        data: $.param({
+            idProducto: idProducto,
+            nombre: nombre,
+            valorProducto: valorProducto
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                $("#register-success-proAc").removeClass("d-none");
+                $('#form-producto-actualizar').addClass('d-none');
+                console.log("actualización de producto correcta");
+                obtenerProductos();
+            } else {
+                $("#register-error-proAc").removeClass("d-none");
+                console.log("Hubo un problema al actualizar los datos del producto: " + idServicio);
+            }
+        }
+    });
 }

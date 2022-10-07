@@ -49,9 +49,23 @@ public class ServicioController implements IServicioController {
         return gson.toJson(listaServicios);
     }
 
+
     @Override
-    public String actualizarServicio() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String actualizarServicio(int idServicio, String nombreServicio, String detalleServicio, double valorServicio) {
+        
+        DBConnection conn = new DBConnection();
+        String sql = "UPDATE servicios set nombreProceso = '" + nombreServicio + "', detalleProceso = '" + detalleServicio + "', valorProceso = " + valorServicio + " WHERE idServicio = " + idServicio;
+        try {
+            Statement st = conn.conectar().createStatement();
+            st.executeUpdate(sql);
+            
+            return "true";
+        } catch (Exception e) {
+            System.out.println("No se pudo relizar actualización de servicio controller, por: " + e.toString());
+        } finally {
+            conn.desconectar();
+        }
+        return "false"; 
     }
 
     @Override
@@ -84,5 +98,4 @@ public class ServicioController implements IServicioController {
 
         return "false";
     }
-
 }
