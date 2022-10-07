@@ -314,7 +314,7 @@ function actualizarServicio() {
 
 //Productos
 function registrarProducto() {
-    let idProducto;
+    
     let nombre = $("#nameProducto").val();
     let valorProducto = $("#valProducto").val();
 
@@ -323,7 +323,6 @@ function registrarProducto() {
         dataType: "html",
         url: "./ServletProductoRegistrar",
         data: $.param({
-            idProducto: idProducto,
             nombre: nombre,
             valorProducto: valorProducto
         }),

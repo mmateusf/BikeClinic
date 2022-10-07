@@ -18,24 +18,19 @@ public class ServicioController implements IServicioController {
     }
 
     @Override
-    public String listarServicios() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public String actualizarServicio() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public String registrarServicio(String nombreServicio, String detalleServicio, double valorServicio) {
-        
+
         //Para los Json
         Gson gson = new Gson();
         DBConnection conn = new DBConnection();
-        
+
         //Consulta para setear.INSERT. ID no se pasa porque es autoincremental
-        String sql = "INSERT INTO servicios(nombreProceso, detalleProceso, valorProceso) values('" + nombreServicio + "', '" + detalleServicio + "', " + valorServicio  + ")";
+        String sql = "INSERT INTO servicios(nombreProceso, detalleProceso, valorProceso) values('" + nombreServicio + "', '" + detalleServicio + "', " + valorServicio + ")";
 
         try {
             Statement st = conn.conectar().createStatement();
@@ -50,7 +45,7 @@ public class ServicioController implements IServicioController {
             return gson.toJson(servicio);
 
         } catch (SQLException e) {
-            System.out.println("No se pudo conectar con la BD en el register() " + e.getMessage());
+            System.out.println("No se pudo conectar con la BD en el servicio " + e.getMessage());
         } finally {
             conn.desconectar();
         }
