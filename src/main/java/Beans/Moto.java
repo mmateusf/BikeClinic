@@ -11,27 +11,27 @@ public class Moto {
     private String idChasis;
     private String marca;
     private String modelo;
-    private String anioRegistro;
+    private String añoRegistro;
     private int idCliente;
     private String nombreCliente;
 
-    public Moto(String placa, String idMotor, String idChasis, String marca, String modelo, String anioRegistro, int idCliente) {
+    public Moto(String placa, String idMotor, String idChasis, String marca, String modelo, String añoRegistro, int idCliente) {
         this.placa = placa;
         this.idMotor = idMotor;
         this.idChasis = idChasis;
         this.marca = marca;
         this.modelo = modelo;
-        this.anioRegistro = anioRegistro;
+        this.añoRegistro = añoRegistro;
         this.idCliente = idCliente;
     }
    
-    public Moto(String placa, String idMotor, String idChasis, String marca, String modelo, String anioRegistro, int idCliente, String nombreCliente) {
+    public Moto(String placa, String idMotor, String idChasis, String marca, String modelo, String añoRegistro, int idCliente, String nombreCliente) {
         this.placa = placa;
         this.idMotor = idMotor;
         this.idChasis = idChasis;
         this.marca = marca;
         this.modelo = modelo;
-        this.anioRegistro = anioRegistro;
+        this.añoRegistro = añoRegistro;
         this.idCliente = idCliente;
         this.nombreCliente = nombreCliente;
         
@@ -77,12 +77,12 @@ public class Moto {
         this.modelo = modelo;
     }
 
-    public String getanioRegistro() {
-        return anioRegistro;
+    public String getañoRegistro() {
+        return añoRegistro;
     }
 
-    public void setanioRegistro(String anioRegistro) {
-        this.anioRegistro = anioRegistro;
+    public void setañoRegistro(String añoRegistro) {
+        this.añoRegistro = añoRegistro;
     }
 
     public int getIdCliente() {
@@ -110,7 +110,7 @@ public class Moto {
                 ", idChasis=" + idChasis + 
                 ", marca=" + marca + 
                 ", modelo=" + modelo + 
-                ", annoRegistro=" + anioRegistro + 
+                ", añoRegistro=" + añoRegistro + 
                 ", idCliente=" + idCliente + 
                 ", nombreCliente=" + nombreCliente + 
                 '}';

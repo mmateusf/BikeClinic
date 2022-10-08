@@ -178,7 +178,7 @@ function mostrarMotos(listaMotos) {
                 '<ul class="list-group list-group-flush">' +
                 '<li class="list-group-item">' + '<strong>ID Cliente:</strong> ' + motoParsed.idCliente + '</li>' +
                 '<li class="list-group-item">' + '<strong>Nombre:</strong> ' + motoParsed.nombreCliente + '</li>' +
-                '<li class="list-group-item">' + '<strong>Año modelo:</strong> ' + motoParsed.annoRegistro + '</li>' +
+                '<li class="list-group-item">' + '<strong>Año modelo:</strong> ' + motoParsed.añoRegistro + '</li>' +
                 '</ul>' +
                 '<div class="card-body text-center">' +
                 '<button type="button" class="activar-modal btn btn-dark" data-bs-toggle="modal" data-bs-target="#' + motoParsed.placa + '">' +

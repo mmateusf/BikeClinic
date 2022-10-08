@@ -33,12 +33,12 @@ public class MotoController implements IMotoController {
                 String idChasis = rs.getString("idChasis");
                 String marca = rs.getString("marca");
                 String modelo = rs.getString("modelo");
-                String anioRegistro = rs.getString("anioRegistro");
+                String añoRegistro = rs.getString("añoRegistro");
                 int idCliente = rs.getInt("Clientes_idCliente");
                 String nombreCliente = rs.getString("Cliente");
 
 //                Se crea objeto y se vuelve json.
-                Moto moto = new Moto(placa, idMotor, idChasis, marca, modelo, anioRegistro, idCliente, nombreCliente);
+                Moto moto = new Moto(placa, idMotor, idChasis, marca, modelo, añoRegistro, idCliente, nombreCliente);
 
                 //Para agregarle
                 listaMotos.add(gson.toJson(moto));
@@ -55,17 +55,17 @@ public class MotoController implements IMotoController {
     }
 
     @Override
-    public String registrarMoto(String placa, String idMotor, String idChasis, String marca, String modelo, String anioRegistro, int idCliente) {
+    public String registrarMoto(String placa, String idMotor, String idChasis, String marca, String modelo, String añoRegistro, int idCliente) {
         
     
         Gson gson = new Gson();
         DBConnection conn = new DBConnection();
-        String sql = "INSERT into motos  (placaMoto, idMotor, idChasis, marca, modelo, anioRegistro, Clientes_idCliente) VALUES('" + placa + "', '" + idMotor + "', '" + idChasis + "', '" + marca + "', '" + modelo + "', '" + anioRegistro + "', " + idCliente + ")";
+        String sql = "INSERT into motos  (placaMoto, idMotor, idChasis, marca, modelo, añoRegistro, Clientes_idCliente) VALUES('" + placa + "', '" + idMotor + "', '" + idChasis + "', '" + marca + "', '" + modelo + "', '" + añoRegistro + "', " + idCliente + ")";
         try {
             Statement st = conn.conectar().createStatement();
             st.executeUpdate(sql);
 
-            Moto moto = new Moto(placa, idMotor, idChasis, marca, modelo, anioRegistro, idCliente);
+            Moto moto = new Moto(placa, idMotor, idChasis, marca, modelo, añoRegistro, idCliente);
 
             st.close();
             System.out.println("Se realizó el registro de la moto.");
@@ -96,10 +96,10 @@ public class MotoController implements IMotoController {
             String idChasis = rs.getString("idChasis");
             String marca = rs.getString("marca");
             String modelo = rs.getString("modelo");
-            String anioRegistro = rs.getString("anioRegistro");
+            String añoRegistro = rs.getString("añoRegistro");
             int idCliente = rs.getInt("Clientes_idCliente");
 
-            Moto moto = new Moto(placa, idMotor, idChasis, marca, modelo, anioRegistro, idCliente);
+            Moto moto = new Moto(placa, idMotor, idChasis, marca, modelo, añoRegistro, idCliente);
 
             st.close();
             System.out.println("Se realizó la consulta de la moto.");

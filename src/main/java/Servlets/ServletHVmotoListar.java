@@ -22,10 +22,6 @@ public class ServletHVmotoListar extends HttpServlet {
     public ServletHVmotoListar() {
         super();
     }
-    
-    
-
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
