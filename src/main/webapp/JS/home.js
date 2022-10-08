@@ -26,6 +26,8 @@ $(document).ready(function () {
 
 
 });
+
+
 function datosToServicio() {
     let idServicio;
     let nombreServicio;
@@ -61,7 +63,6 @@ function datosToServicio() {
         });
     });
 }
-
 
 //Actualizar botón
 function datosToProducto() {

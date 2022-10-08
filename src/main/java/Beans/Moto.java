@@ -11,17 +11,27 @@ public class Moto {
     private String idChasis;
     private String marca;
     private String modelo;
-    private String annoRegistro;
+    private String anioRegistro;
     private int idCliente;
     private String nombreCliente;
-   
-    public Moto(String placa, String idMotor, String idChasis, String marca, String modelo, String annoRegistro, int idCliente, String nombreCliente) {
+
+    public Moto(String placa, String idMotor, String idChasis, String marca, String modelo, String anioRegistro, int idCliente) {
         this.placa = placa;
         this.idMotor = idMotor;
         this.idChasis = idChasis;
         this.marca = marca;
         this.modelo = modelo;
-        this.annoRegistro = annoRegistro;
+        this.anioRegistro = anioRegistro;
+        this.idCliente = idCliente;
+    }
+   
+    public Moto(String placa, String idMotor, String idChasis, String marca, String modelo, String anioRegistro, int idCliente, String nombreCliente) {
+        this.placa = placa;
+        this.idMotor = idMotor;
+        this.idChasis = idChasis;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anioRegistro = anioRegistro;
         this.idCliente = idCliente;
         this.nombreCliente = nombreCliente;
         
@@ -67,12 +77,12 @@ public class Moto {
         this.modelo = modelo;
     }
 
-    public String getAnnoRegistro() {
-        return annoRegistro;
+    public String getanioRegistro() {
+        return anioRegistro;
     }
 
-    public void setAnnoRegistro(String annoRegistro) {
-        this.annoRegistro = annoRegistro;
+    public void setanioRegistro(String anioRegistro) {
+        this.anioRegistro = anioRegistro;
     }
 
     public int getIdCliente() {
@@ -100,7 +110,7 @@ public class Moto {
                 ", idChasis=" + idChasis + 
                 ", marca=" + marca + 
                 ", modelo=" + modelo + 
-                ", annoRegistro=" + annoRegistro + 
+                ", annoRegistro=" + anioRegistro + 
                 ", idCliente=" + idCliente + 
                 ", nombreCliente=" + nombreCliente + 
                 '}';

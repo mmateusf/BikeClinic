@@ -33,6 +33,35 @@ public class Estado {
     private String kilometraje;
     private String combustible;
 
+    public Estado(String indicadores, String desIndicadores, String aceite, String nivelAceite, String liquidoFrenos, String liquidoEmbrague, String liquidoRefrigerante, String lucesAptas, String espejos, String claxon, String tanque, String llantaDelantera, String llantaTrasera, String motor, String chasis, String acelerador, String escape, String trasmision, String embrague, String frenos, String cadena, String apoyaPies, String kilometraje, String combustible) {
+        this.indicadores = indicadores;
+        this.desIndicadores = desIndicadores;
+        this.aceite = aceite;
+        this.nivelAceite = nivelAceite;
+        this.liquidoFrenos = liquidoFrenos;
+        this.liquidoEmbrague = liquidoEmbrague;
+        this.liquidoRefrigerante = liquidoRefrigerante;
+        this.lucesAptas = lucesAptas;
+        this.espejos = espejos;
+        this.claxon = claxon;
+        this.tanque = tanque;
+        this.llantaDelantera = llantaDelantera;
+        this.llantaTrasera = llantaTrasera;
+        this.motor = motor;
+        this.chasis = chasis;
+        this.acelerador = acelerador;
+        this.escape = escape;
+        this.trasmision = trasmision;
+        this.embrague = embrague;
+        this.frenos = frenos;
+        this.cadena = cadena;
+        this.apoyaPies = apoyaPies;
+        this.kilometraje = kilometraje;
+        this.combustible = combustible;
+    }
+    
+    
+    
     public Estado(int moto, int idEstado, String indicadores, String desIndicadores, String aceite, String nivelAceite, String liquidoFrenos, String liquidoEmbrague, String liquidoRefrigerante, String lucesAptas, String espejos, String claxon, String tanque, String llantaDelantera, String llantaTrasera, String motor, String chasis, String acelerador, String escape, String trasmision, String embrague, String frenos, String cadena, String apoyaPies, String kilometraje, String combustible) {
         this.moto = moto;
         this.idEstado = idEstado;
@@ -60,6 +89,11 @@ public class Estado {
         this.apoyaPies = apoyaPies;
         this.kilometraje = kilometraje;
         this.combustible = combustible;
+    }
+
+    public Estado(int idEstado, String kilometraje) {
+        this.idEstado = idEstado;
+        this.kilometraje = kilometraje;
     }
 
     public int getMoto() {

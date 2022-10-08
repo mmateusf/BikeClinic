@@ -33,12 +33,12 @@ public class MotoController implements IMotoController {
                 String idChasis = rs.getString("idChasis");
                 String marca = rs.getString("marca");
                 String modelo = rs.getString("modelo");
-                String annoRegistro = rs.getString("annoRegistro");
+                String anioRegistro = rs.getString("anioRegistro");
                 int idCliente = rs.getInt("Clientes_idCliente");
                 String nombreCliente = rs.getString("Cliente");
 
 //                Se crea objeto y se vuelve json.
-                Moto moto = new Moto(placa, idMotor, idChasis, marca, modelo, annoRegistro, idCliente, nombreCliente);
+                Moto moto = new Moto(placa, idMotor, idChasis, marca, modelo, anioRegistro, idCliente, nombreCliente);
 
                 //Para agregarle
                 listaMotos.add(gson.toJson(moto));
@@ -52,5 +52,65 @@ public class MotoController implements IMotoController {
 
         return gson.toJson(listaMotos);
 
+    }
+
+    @Override
+    public String registrarMoto(String placa, String idMotor, String idChasis, String marca, String modelo, String anioRegistro, int idCliente) {
+        
+    
+        Gson gson = new Gson();
+        DBConnection conn = new DBConnection();
+        String sql = "INSERT into motos  (placaMoto, idMotor, idChasis, marca, modelo, anioRegistro, Clientes_idCliente) VALUES('" + placa + "', '" + idMotor + "', '" + idChasis + "', '" + marca + "', '" + modelo + "', '" + anioRegistro + "', " + idCliente + ")";
+        try {
+            Statement st = conn.conectar().createStatement();
+            st.executeUpdate(sql);
+
+            Moto moto = new Moto(placa, idMotor, idChasis, marca, modelo, anioRegistro, idCliente);
+
+            st.close();
+            System.out.println("Se realizó el registro de la moto.");
+            return gson.toJson(moto);
+
+        } catch (Exception e) {
+            System.out.println("No se pudo conectar a la BD en registrar moto controller : " + e.getMessage());
+        } finally {
+            conn.desconectar();
+        }
+        return "false";
+    }
+
+    @Override
+    public String buscarMoto(String placaMoto) {
+
+        Gson gson = new Gson();
+        DBConnection conn = new DBConnection();
+        String sql = "SELECT * FROM motos WHERE placaMoto = '" + placaMoto + "'";
+
+        try {
+            Statement st = conn.conectar().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            rs.next();
+            String placa = placaMoto;
+            String idMotor = rs.getString("idMotor");
+            String idChasis = rs.getString("idChasis");
+            String marca = rs.getString("marca");
+            String modelo = rs.getString("modelo");
+            String anioRegistro = rs.getString("anioRegistro");
+            int idCliente = rs.getInt("Clientes_idCliente");
+
+            Moto moto = new Moto(placa, idMotor, idChasis, marca, modelo, anioRegistro, idCliente);
+
+            st.close();
+            System.out.println("Se realizó la consulta de la moto.");
+            return gson.toJson(moto);
+
+        } catch (Exception e) {
+            System.out.println("No se pudo relizar la busqueda de la moto, por: " + e.toString());
+        } finally {
+            conn.desconectar();
+        }
+
+        return "false";
     }
 }

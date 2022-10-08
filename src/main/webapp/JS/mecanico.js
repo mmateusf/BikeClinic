@@ -1,13 +1,31 @@
 let idClienteO;
+let placaMotoO;
+let estadoO;
+let idOrden;
 
 $(document).ready(function () {
 
     validarCliente();
+    validarMoto();
+    obtenerListaMecanicos();
     checkCorreo();
+
 //Correcto, para botón registrar. sin validar.
     $("#btnSubmitUser").click(function (event) {
         event.preventDefault();
         registrarCliente();
+
+    });
+
+    $("#btnMoto").click(function (event) {
+        event.preventDefault();
+        registrarMoto();
+
+    });
+
+    $("#btnAddEstado").click(function (event) {
+        event.preventDefault();
+        registrarEstado();
 
     });
 });
@@ -22,7 +40,7 @@ function checkCorreo() {
     });
 }
 //ZONA de Cliente
-//Funciona la validación, no setea algunos datos y valida dos veces.
+//Funciona Validado,
 function validarCliente() {
 
     let idCliente;
@@ -35,7 +53,7 @@ function validarCliente() {
     //no necesito if, busqueda hace el llamado de actualizar
 }
 
-//falta todo lo del back
+//Funciona, validado.
 function registrarCliente() {
 
     let tipoID = $("#Documento").val();
@@ -48,7 +66,7 @@ function registrarCliente() {
     //asigna en la global, pues es irrelevante para esto el if pues no se puede cambiar el id.
     //si no existe se ejecutará está cuando se de click en el botón enviar.
     idClienteO = idCliente;
-    
+
     $.ajax({
         type: "GET",
         dataType: "html",
@@ -139,7 +157,7 @@ function buscarCliente(idCliente) {
                     alert("Cuando actualice los datos debe dar click en el botón de 'Editar Registro'");
                     $("#btnSubmitUser").prop('disabled', true);
                     $("#btnEditUser").prop('disabled', false);
-                    
+
                     //le da espacio a actualizar los nuevos datos
                     $("#btnEditUser").click(function (event) {
                         event.preventDefault();
@@ -187,3 +205,347 @@ function pasarPestañaCliente() {
     $("#nav-moto").addClass("show");
     $("#nav-moto").addClass("active");
 }
+
+//ZONA de moto
+//Funciona validado
+function validarMoto() {
+
+    let placaMoto;
+    $("#Placa").on('keyup', function (event) {
+        event.preventDefault();
+        placaMoto = document.getElementById('Placa').value;
+        console.log("La placa es: " + placaMoto);
+        buscarMoto(placaMoto);
+    });
+}
+
+//Funciona validado
+function buscarMoto(placaMoto) {
+//buscará por id returnará booleano, tal vez también los datos. 
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletMotoBuscar",
+        data: $.param({
+            placaMoto: placaMoto
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                console.log("La moto: " + placaMoto + " ya está registrada");
+                //setear datos del cliente en el formulario
+                //setear recibe datos, si se mete paramentro en val() se pueden setear
+                $("#Placa").val(placaMoto);
+                $("#Motor").val(parsedResult.idMotor);
+                $("#Chasis").val(parsedResult.idChasis);
+                $("#Marca").val(parsedResult.marca);
+                $("#Modelo").val(parsedResult.modelo);
+                $("#Anio").val(parsedResult.anioRegistro);
+                //bloquea id
+                $("#Identificacion").prop('disabled', true);
+                //asigna en la global, pues es irrelevante para esto el if pues no se puede cambiar el id.
+                placaMotoO = placaMoto;
+                idClienteO = parsedResult.Clientes_idCliente;
+                alert("La moto ya está registrada");
+                pasarPestañaMoto();
+                // TODO FUTURO : algo de verificar si id cliente y placa encontrada son de una persona
+
+            } else {
+                console.log("La moto :" + placaMotoO + ", no está resgistrado");
+            }
+        }
+    });
+}
+
+//Funciona validado
+function registrarMoto() {
+
+    let placaMoto = $("#Placa").val();
+    let idMotor = $("#Motor").val();
+    let idChasis = $("#Chasis").val();
+    let marca = $("#Marca").val();
+    let modelo = $("#Modelo").val();
+    let anioRegistro = $("#Anio").val();
+    let Clientes_idCliente = idClienteO;
+    //asigna en la global, pues es irrelevante para esto el if pues no se puede cambiar el id.
+    //si no existe se ejecutará está cuando se de click en el botón enviar.
+    placaMotoO = placaMoto;
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletMotoRegistro",
+        data: $.param({
+            placaMoto: placaMoto,
+            idMotor: idMotor,
+            idChasis: idChasis,
+            marca: marca,
+            modelo: modelo,
+            anioRegistro: anioRegistro,
+            Clientes_idCliente: Clientes_idCliente
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                pasarPestañaMoto();
+                console.log("Se registró correctamente la moto");
+            } else {
+                //ta listo esto.
+                $("#register-moto").removeClass("d-none");
+            }
+        }
+    });
+}
+
+//Funciona validado
+function pasarPestañaMoto() {
+
+    //remueve clases y habilita pestañas
+    //nav link.
+    $("#nav-moto-tab").removeClass("active");
+    $('#nav-moto-tab').prop('aria-selected', false);
+    $("#nav-moto-tab").prop('disabled', true);
+    //panel (creo que se puede hacer en una sola.
+    $("#nav-moto").removeClass("show");
+    $("#nav-moto").removeClass("active");
+
+    //next tab
+    $("#nav-estado-tab").addClass("active");
+    $('#nav-estado-tab').prop('aria-selected', true);
+    $("#nav-estado-tab").prop('disabled', false);
+    //panel
+    $("#nav-estado").addClass("show");
+    $("#nav-estado").addClass("active");
+}
+
+//ZONA Mecánico para ponerlo en select 
+//TODO futuro validarlo con los datos de login.
+//Funciona Validado
+function obtenerListaMecanicos() {
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletMecanicosListar",
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                mostrarMecanicos(parsedResult);
+
+            } else {
+                console.log("Hubo un problema al llamar los datos de lista mecánicos en la zona de mecánico.");
+            }
+        }
+    });
+}
+
+//Funciona Validado
+function mostrarMecanicos(listaMecanicos) {
+
+    let selects = "";
+    $.each(listaMecanicos, function (index, mecanico) {
+
+        mecanico = JSON.parse(mecanico);
+        if (mecanico.estado === "Activo") {
+            mecanicoActivo = mecanico;
+        }
+        selects += '<option value="' + mecanicoActivo.id + '" >' +
+                mecanicoActivo.nombre + ' ' + mecanicoActivo.primerApellido + ' ' + mecanicoActivo.segundoApellido +
+                '</option>';
+    });
+    $('#Mecanico').html(selects);
+}
+
+//ZONA estado
+//Funciona, debería no dejar registrar con el mismo km
+function registrarEstado() {
+
+    let indicadores = document.querySelector('input[name=flexRadioIndicadores]:checked').value;
+    let desIndicadores;
+    
+    if (indicadores === 'No apto') {
+        $("#DescripcionInd").prop('disabled', false);
+        desIndicadores = $("#DescripcionInd").val();
+        $("#alertDesc-estado").removeClass("d-none");
+    } else {
+        desIndicadores = null;
+    }
+
+    let aceite = document.querySelector('input[name=flexRadioAceite]:checked').value;
+    let nivelAceite = document.querySelector('input[name=flexRadioAceiteNivel]:checked').value;
+    let liquidoFrenos = document.querySelector('input[name=flexRadioLFrenos]:checked').value;
+    let liquidoEmbrague = document.querySelector('input[name=flexRadioLEmbrague]:checked').value;
+    let liquidoRefrigerante = document.querySelector('input[name=flexRadioLRefrigerante]:checked').value;
+    let lucesAptas = document.querySelector('input[value=Farola]:checked').value;
+    lucesAptas += ", " + document.querySelector('input[value=Stop]:checked').value;
+    lucesAptas += ", " + document.querySelector('input[value=Direcionales]:checked').value;
+    lucesAptas += ", " + document.querySelector('input[value=Auxiliares]:checked').value;
+
+    let espejos = document.querySelector('input[name=flexRadioEspejo]:checked').value;
+    let claxon = document.querySelector('input[name=flexRadioClaxon]:checked').value;
+    let tanque = document.querySelector('input[name=flexRadioTanque]:checked').value;
+    let llantaDelantera = document.querySelector('input[name=flexRadioLDelantera]:checked').value;
+    let llantaTrasera = document.querySelector('input[name=flexRadioLTrasera]:checked').value;
+    let motor = document.querySelector('input[name=flexRadioMotor]:checked').value;
+    let chasis = document.querySelector('input[name=flexRadioChasis]:checked').value;
+    let acelerador = document.querySelector('input[name=flexRadioAcelerador]:checked').value;
+    let escape = document.querySelector('input[name=flexRadioEscape]:checked').value;
+    let trasmision = document.querySelector('input[name=flexRadioTrasmision]:checked').value;
+    let embrague = document.querySelector('input[name=flexRadioEmbrague]:checked').value;
+    let frenos = document.querySelector('input[name=flexRadioFreno]:checked').value;
+    let cadena = document.querySelector('input[name=flexRadioCadena]:checked').value;
+    let apoyaPies = document.querySelector('input[name=flexRadioApoya]:checked').value;
+    let kilometraje = document.getElementById('Kilometraje').value;
+    let combustible = document.querySelector('input[name=flexRadioGas]:checked').value;
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletEstadoRegistro",
+        data: $.param({
+            indicadores: indicadores,
+            desIndicadores: desIndicadores,
+            aceite: aceite,
+            nivelAceite: nivelAceite,
+            liquidoFrenos: liquidoFrenos,
+            liquidoEmbrague: liquidoEmbrague,
+            liquidoRefrigerante: liquidoRefrigerante,
+            lucesAptas: lucesAptas,
+            espejos: espejos,
+            claxon: claxon,
+            tanque: tanque,
+            llantaDelantera: llantaDelantera,
+            llantaTrasera: llantaTrasera,
+            motor: motor,
+            chasis: chasis,
+            acelerador: acelerador,
+            escape: escape,
+            trasmision: trasmision,
+            embrague: embrague,
+            frenos: frenos,
+            cadena: cadena,
+            apoyaPies: apoyaPies,
+            kilometraje: kilometraje,
+            combustible: combustible
+
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                obtenerIdEstado(kilometraje);
+                pasarPestañaMotivo();
+
+                console.log("Se registró correctamente el estado");
+            } else {
+                //ta listo esto.
+                $("#register-estado").removeClass("d-none");
+            }
+        }
+    });
+}
+
+//Funciona.
+function obtenerIdEstado(kilometraje) {
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletEstadoBuscar",
+        data: $.param({
+            kilometraje: kilometraje
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                console.log("El estado con " + kilometraje + " ya está registrado");
+                estadoO = parsedResult.idEstado;
+            }
+        }
+    });
+}
+
+//Funciona
+function pasarPestañaMotivo() {
+
+    //remueve clases y habilita pestañas
+    //nav link.
+    $("#nav-estado-tab").removeClass("active");
+    $('#nav-estado-tab').prop('aria-selected', false);
+    $("#nav-estado-tab").prop('disabled', true);
+    //panel (creo que se puede hacer en una sola.
+    $("#nav-estado").removeClass("show");
+    $("#nav-estado").removeClass("active");
+
+    //next tab
+    $("#nav-motivo-tab").addClass("active");
+    $('#nav-motivo-tab').prop('aria-selected', true);
+    $("#nav-motivo-tab").prop('disabled', false);
+    //panel
+    $("#nav-motivo").addClass("show");
+    $("#nav-motivo").addClass("active");
+}
+
+//ZONA ORDEN de servicio
+//MOTIVO 
+function registrarMotivo() {
+
+    //idOrden autogenera Se debe obtener después
+    fecha = new Date().getUTCFullYear();
+    fecha += "-" + new Date().getUTCMonth();
+    fecha += "-" + new Date().getUTCDate();
+    let cliente = idClienteO;
+    let mecanico = document.getElementById('Mecanico').value;
+    let moto = placaMotoO;
+    let motivo = document.getElementById('Motivo').value;
+    let documentos = document.querySelector('input[value=Farola]:checked').value;
+    documentos += ", " + document.querySelector('#inlineCheckbox2');
+    documentos += ", " + document.querySelector('#inlineCheckbox3');
+    let anticipo = document.getElementById("flexSwitchCheckAnticipo").value;
+
+    let valorAnticipo;
+    if (anticipo === 'Sí') {
+        $("#valAnticipo").prop('disabled', false);
+        valorAnticipo = $("#valAnticipo").val();
+    } else {
+        anticipo = "No";
+        valorAnticipo = 0;
+    }
+    ;
+
+    let autorizacionRuta = document.getElementById("flexSwitchCheckRuta").value;
+
+    if (autorizacionRuta === 'Sí') {
+    } else {
+        autorizacionRuta = "No";
+    }
+    ;
+
+    let descripcionDiagnostico = $("#Dmotivo").val();
+    let estado = estadoO;
+
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletMotoRegistro",
+        data: $.param({
+            placaMoto: placaMoto,
+            idMotor: idMotor,
+            idChasis: idChasis,
+            marca: marca,
+            modelo: modelo,
+            anioRegistro: anioRegistro,
+            Clientes_idCliente: Clientes_idCliente
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                pasarPestañaMoto();
+                console.log("Se registró correctamente la moto");
+            } else {
+                //ta listo esto.
+                $("#register-moto").removeClass("d-none");
+            }
+        }
+    });
+}
+
