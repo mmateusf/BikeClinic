@@ -10,6 +10,11 @@ public class Producto {
     private String nombre;
     private double valorProducto; 
 
+    public Producto(String nombre, double valorProducto) {
+        this.nombre = nombre;
+        this.valorProducto = valorProducto;
+    }
+
     public Producto(int idProducto, String nombre, double valorProducto) {
         this.idProducto = idProducto;
         this.nombre = nombre;

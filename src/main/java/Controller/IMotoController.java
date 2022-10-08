@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package Controller;
 
 /**
@@ -10,4 +7,8 @@ package Controller;
  */
 public interface IMotoController {
     public String listarMotos();
+    
+    public String registrarMoto(String placa, String idMotor, String idChasis, String marca, String modelo, String anioRegistro, int idCliente);
+    
+    public String buscarMoto(String placaMoto);
 }

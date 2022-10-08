@@ -71,5 +71,58 @@ public class EstadoController implements IEstadoController {
 
         return gson.toJson(listaEstados);
     }
+
+    @Override
+    public String registrarEstado(String indicadores, String desIndicadores, String aceite, String nivelAceite, String liquidoFrenos, String liquidoEmbrague, String liquidoRefrigerante, String lucesAptas, String espejos, String claxon, String tanque, String llantaDelantera, String llantaTrasera, String motor, String chasis, String acelerador, String escape, String trasmision, String embrague, String frenos, String cadena, String apoyaPies, String kilometraje, String combustible) {
+    
+        Gson gson = new Gson();
+        DBConnection conn = new DBConnection();
+        String sql = "INSERT into estado  (indicadores, desIndicadores, aceite, nivelAceite, liquidoFrenos, liquidoEmbrague, liquidoRefrigerante, lucesAptas, espejos, claxon, tanque, llantaDelantera, llantaTrasera, motor, chasis, acelerador, escape, trasmision, embrague, frenos, cadena, apoyaPies, kilometraje, combustible) VALUES('" + indicadores + "', '" + desIndicadores + "', '" + aceite + "', '" + nivelAceite + "', '" + liquidoFrenos + "', '" + liquidoEmbrague + "', '" + liquidoRefrigerante + "', '" + lucesAptas + "', '" + espejos + "', '" + claxon + "', '" + tanque + "', '" + llantaDelantera + "', '" + llantaTrasera + "','" + motor + "', '" + chasis + "', '" + acelerador + "', '" + escape + "', '" + trasmision + "', '" + embrague + "', '" + frenos + "', '" + cadena + "', '" + apoyaPies + "', " + kilometraje + ", '" + combustible + "')";
+        try {
+            Statement st = conn.conectar().createStatement();
+            st.executeUpdate(sql);
+
+            Estado estado = new Estado(indicadores, desIndicadores, aceite, nivelAceite, liquidoFrenos, liquidoEmbrague, liquidoRefrigerante, lucesAptas, espejos, claxon, tanque, llantaDelantera, llantaTrasera, motor, chasis, acelerador, escape, trasmision, embrague, frenos, cadena, apoyaPies, kilometraje, combustible);
+
+            st.close();
+            System.out.println("Se realizó el registro de la moto.");
+            return gson.toJson(estado);
+
+        } catch (SQLException e) {
+            System.out.println("No se pudo conectar a la BD en registrar estado controller : " + e.getMessage());
+        } finally {
+            conn.desconectar();
+        }
+        return "false";
+    }
+
+    @Override
+    public String buscarEstado(String kilometraje) {
+        
+        Gson gson = new Gson();
+        DBConnection conn = new DBConnection();
+        String sql = "SELECT * FROM estado WHERE kilometraje = '" + kilometraje + "'";
+
+        try {
+            Statement st = conn.conectar().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            rs.next();
+            int idEstado = Integer.parseInt(rs.getString("idEstado"));
+
+            Estado moto = new Estado(idEstado, kilometraje);
+
+            st.close();
+            System.out.println("Se realizó la consulta del estado.");
+            return gson.toJson(moto);
+
+        } catch (Exception e) {
+            System.out.println("No se pudo relizar la busqueda del estado, por: " + e.toString());
+        } finally {
+            conn.desconectar();
+        }
+
+        return "false";
+    }
     
 }
