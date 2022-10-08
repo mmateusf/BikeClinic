@@ -2,8 +2,9 @@ $(document).ready(function () {
     $("#form-login").submit(function (event) {
         event.preventDefault();
         autenticarUsuario();
-
-    })
+        
+    });
+    console.log("Funciona");
 });
 
 function autenticarUsuario() {

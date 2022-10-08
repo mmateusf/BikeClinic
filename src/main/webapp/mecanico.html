@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <script src="./JS/mecanico.js"></script>
         <script src="./JS/popper.min.js"></script>
         <script src="./JS/jquery-3.6.1.min.js"></script>
         <script src="./JS/bootstrap.bundle.min.js"></script>
@@ -47,8 +48,8 @@
             <section class="container shadow rounded bg-light ">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-cliente-tab" data-bs-toggle="tab" data-bs-target="#nav-cliente" type="button" role="tab" aria-controls="nav-cliente" aria-selected="true">Registro cliente</button>
-                        <button class="nav-link" id="nav-moto-tab" data-bs-toggle="tab" data-bs-target="#nav-moto" type="button" role="tab" aria-controls="nav-moto" aria-selected="false" disabled>Registro moto</button>
+                        <button class="nav-link active" id="nav-cliente-tab" data-bs-toggle="tab" data-bs-target="#nav-cliente" type="button" role="tab" aria-controls="nav-cliente" aria-selected="true" >Registro cliente</button>
+                        <button class="nav-link " id="nav-moto-tab" data-bs-toggle="tab" data-bs-target="#nav-moto" type="button" role="tab" aria-controls="nav-moto" aria-selected="false" disabled>Registro moto</button>
                         <button class="nav-link" id="nav-motivo-tab" data-bs-toggle="tab" data-bs-target="#nav-motivo" type="button" role="tab" aria-controls="nav-motivo" aria-selected="false" disabled>Motivo de ingreso</button>
                         <button class="nav-link" id="nav-estado-tab" data-bs-toggle="tab" data-bs-target="#nav-estado" type="button" role="tab" aria-controls="nav-estado" aria-selected="false" disabled>Estado vehículo</button>
                         <button class="nav-link" id="nav-servicio-tab" data-bs-toggle="tab" data-bs-target="#nav-servicio" type="button" role="tab" aria-controls="nav-servicio" aria-selected="false" disabled>Servicios a realizar</button>
@@ -56,14 +57,15 @@
                 </nav>
 
                 <!-- Los pane de las tabs -->
+                <!-- CLIENTE -->
                 <div class="tab-content border-dark m-3" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-cliente" role="tabpanel" aria-labelledby="nav-cliente-tab" tabindex="0">
-                        <article class="">
-                            <fieldset class = "info-person">
+                        <article>
+                            <fieldset>
                                 <legend>
                                     Por favor llene los siguientes campos.
                                 </legend>
-                                <form class="" action="#">
+                                <form class="" >
                                     <div class="row">
 
                                         <div class="col-4">
@@ -72,13 +74,13 @@
                                             </label>
                                             <select id = "Documento" name = "Documento" class="form-select mb-3">
                                                 <option value="1">
-                                                    Cedula de ciudadania
+                                                    CC
                                                 </option>
                                                 <option value="2">
-                                                    Cedula de extranjeria
+                                                    CE
                                                 </option>
                                                 <option value="3">
-                                                    Tarjeta de identidad
+                                                    TI
                                                 </option>
                                             </select>
                                         </div>
@@ -111,13 +113,13 @@
 
                                         <div class="col-4">
                                             <label for="Correo" class = "form-label">
-                                                Correo electronico:
+                                                Correo electronico: 
                                             </label>
                                             <input type="email" placeholder="@Correo electronico" class="form-control mb-3" id = "Correo" name = "Correo" required>
                                         </div>
                                         <div class="col-4">
                                             <label for="CorreoC" class = "form-label">
-                                                Confirmar correo:
+                                                Confirmar correo: <span id='message'></span>
                                             </label>
                                             <input type="email" placeholder="@Confirme correo electronico" class="form-control mb-3" id = "CorreoC" name = "CorreoC" required>
                                         </div>
@@ -131,7 +133,10 @@
                                             <button id="btnSubmitUser" type="submit" class="btn btn-outline-primary mb-1 text-dark">Registrar cliente</button>
                                             <input id="btnEditUser" type="submit" class="btn btn-outline-warning mb-1 text-dark" value="Editar registro">
                                         </div>
-
+                                        <div id="register-cliente" class=" mt-3 alert alert-warning alert-dismissible fade show d-none" role="alert">
+                                            No se pudo registrar al cliente, vuelva a intentar.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
                                     </div>
                                 </form>
                             </fieldset>
@@ -151,7 +156,7 @@
                             <br/>
                         </article>
                     </div>
-                    <div class="tab-pane fade" id="nav-moto" role="tabpanel" aria-labelledby="nav-moto-tab" tabindex="0">
+                    <div class="tab-pane fade " id="nav-moto" role="tabpanel" aria-labelledby="nav-moto-tab" tabindex="0">
                         <article>
                             <fieldset >
                                 <legend>
