@@ -53,6 +53,7 @@ function datosToServicio() {
             nombreServicio = document.getElementById("nameServicioAc").value;
             detalleServicio = document.getElementById("desServicioAc").value;
             valorServicio = document.getElementById("valServicioAc").value;
+            
             actualizarServicio(idServicio, nombreServicio, detalleServicio, valorServicio);
             $('#form-servicio-actualizar').addClass('d-none');
 
@@ -330,7 +331,6 @@ function registrarServicio() {
             let parsedResult = JSON.parse(result);
             if (parsedResult !== false) {
                 $("#register-success-ser").removeClass("d-none");
-
 
             } else {
                 $("#register-error-ser").removeClass("d-none");

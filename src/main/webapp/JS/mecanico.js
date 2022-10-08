@@ -1,17 +1,18 @@
+let idClienteO;
+
 $(document).ready(function () {
 
     validarCliente();
-    registrarCliente();
-//correo
     checkCorreo();
-//Registrar servicio offcanvas
-    $("#form-servicio").submit(function (event) {
+//Correcto, para botón registrar. sin validar.
+    $("#btnSubmitUser").click(function (event) {
         event.preventDefault();
-        registrarServicio();
+        registrarCliente();
 
     });
 });
 
+//ok js, Validado
 function checkCorreo() {
     $('#Correo, #CorreoC').on('keyup', function () {
         if ($('#Correo').val() === $('#CorreoC').val()) {
@@ -21,22 +22,20 @@ function checkCorreo() {
     });
 }
 //ZONA de Cliente
+//Funciona la validación, no setea algunos datos y valida dos veces.
 function validarCliente() {
 
     let idCliente;
-    let busqueda;
-    $("#Documento").keyup(function (event) {
+    $("#Identificacion").on('keyup', function (event) {
         event.preventDefault();
-        idCliente = event.target.value; //val()
-        busqueda = buscarCliente(idCliente);
+        idCliente = $("#Identificacion").val();
+        console.log("el id es: " + idCliente);
+        buscarCliente(idCliente);
     });
-    if (busqueda !== false) {
-        actualizarCliente();
-    } else {
-    }
+    //no necesito if, busqueda hace el llamado de actualizar
 }
 
-
+//falta todo lo del back
 function registrarCliente() {
 
     let tipoID = $("#Documento").val();
@@ -46,7 +45,10 @@ function registrarCliente() {
     let segundoApellido = $("#Sapellido").val();
     let correo = $("#Correo").val();
     let numeroContacto = $("#Telefono").val();
-
+    //asigna en la global, pues es irrelevante para esto el if pues no se puede cambiar el id.
+    //si no existe se ejecutará está cuando se de click en el botón enviar.
+    idClienteO = idCliente;
+    
     $.ajax({
         type: "GET",
         dataType: "html",
@@ -63,23 +65,8 @@ function registrarCliente() {
         success: function (result) {
             let parsedResult = JSON.parse(result);
             if (parsedResult !== false) {
-                //remueve clases y habilita pestañas
-                //nav link.
-                $("#nav-cliente-tab").removeClass("active");
-                $('#nav-cliente-tab').prop('aria-selected', false);
-                $("nav-cliente-tab").prop('disabled', true);
-                //panel
-                $("#nav-cliente").removeClass("show");
-                $("#nav-cliente").removeClass("active");
-
-                //next tab
-                $("#nav-moto-tab").addClass("active");
-                $('#nav-moto-tab').prop('aria-selected', true);
-                $("#nav-moto-tab").prop('disabled', false);
-                //panel
-                $("#nav-moto").addClass("show");
-                $("#nav-moto").addClass("active");
-
+                pasarPestañaCliente();
+                console.log("Se registró correctamente el cliente");
             } else {
                 //ta listo esto.
                 $("#register-cliente").removeClass("d-none");
@@ -88,19 +75,37 @@ function registrarCliente() {
     });
 }
 
-function actualizarCliente() {
+//Funciona, validado
+function actualizarCliente(tipoId, idCliente, nombre, primerApellido, segundoApellido, correo, numeroContacto) {
     //alert sobre actualizar sino se manda a siguiente pestaña
+    $.ajax({
+        type: "GET",
+        dataType: "html",
+        url: "./ServletClienteActualizar",
+        data: $.param({
+            tipoId: tipoId,
+            idCliente: idCliente,
+            nombre: nombre,
+            primerApellido: primerApellido,
+            segundoApellido: segundoApellido,
+            correo: correo,
+            numeroContacto: numeroContacto
+        }),
+        success: function (result) {
+            let parsedResult = JSON.parse(result);
+            if (parsedResult !== false) {
+                alert("Actuazlición exitosa");
+                pasarPestañaCliente();
+                console.log("Se actulizó cliente: " + idCliente);
+                //sí se algo con la tabla aquí se puede construir.
+            } else {
+                $("#actualizar.cliente").removeClass("d-none");
+            }
+        }
+    });
 }
-//setear recibe datos, si se mete paramentro en val() se pueden setear
-let tipoID = $("#Documento").val();
-let idCliente = $("#Identificacion").val();
-let nombre = $("#Cliente").val();
-let primerApellido = $("#Papellido").val();
-let segundoApellido = $("#Sapellido").val();
-let correo = $("#Correo").val();
-let numeroContacto = $("#Telefono").val();
-$("#password-error").removeClass("d-none");
 
+//Funciona validado.
 function buscarCliente(idCliente) {
 //buscará por id returnará booleano, tal vez también los datos. 
     $.ajax({
@@ -114,30 +119,71 @@ function buscarCliente(idCliente) {
             let parsedResult = JSON.parse(result);
             if (parsedResult !== false) {
                 console.log("El usuario " + idCliente + " ya está registrado");
-                if (confirm("El cliente ya está registrado, ¿desea actualizar sus datos?")) {
-                    actualizarCliente();
-                } else {
-                    //remueve clases y habilita pestañas
-                    //nav link.
-                    $("#nav-cliente-tab").removeClass("active");
-                    $('#nav-cliente-tab').prop('aria-selected', false);
-                    $("nav-cliente-tab").prop('disabled', true);
-                    //panel
-                    $("#nav-cliente").removeClass("show");
-                    $("#nav-cliente").removeClass("active");
+                //setear datos del cliente en el formulario
+                //setear recibe datos, si se mete paramentro en val() se pueden setear
+                tipo = document.getElementById('Documento').value;
+                $("#Documento").val(tipo);
+                $("#Identificacion").val(idCliente);
+                $("#Cliente").val(parsedResult.nombre);
+                $("#Papellido").val(parsedResult.primerApellido);
+                $("#Sapellido").val(parsedResult.segundoApellido);
+                $("#Correo").val(parsedResult.correo);
+                $("#CorreoC").val(parsedResult.correo);
+                $("#Telefono").val(parsedResult.numeroContacto);
+                //bloquea id
+                $("#Identificacion").prop('disabled', true);
+                //asigna en la global, pues es irrelevante para esto el if pues no se puede cambiar el id.
+                idClienteO = idCliente;
 
-                    //next tab
-                    $("#nav-moto-tab").addClass("active");
-                    $('#nav-moto-tab').prop('aria-selected', true);
-                    $("#nav-moto-tab").prop('disabled', false);
-                    //panel
-                    $("#nav-moto").addClass("show");
-                    $("#nav-moto").addClass("active");
+                if (confirm("El cliente ya está registrado, ¿desea actualizar sus datos?")) {
+                    alert("Cuando actualice los datos debe dar click en el botón de 'Editar Registro'");
+                    $("#btnSubmitUser").prop('disabled', true);
+                    $("#btnEditUser").prop('disabled', false);
+                    
+                    //le da espacio a actualizar los nuevos datos
+                    $("#btnEditUser").click(function (event) {
+                        event.preventDefault();
+                        //recolecta nuevos datos
+                        let tipoId = $("#Documento").val();
+                        let idCliente = $("#Identificacion").val();
+                        let nombre = $("#Cliente").val();
+                        let primerApellido = $("#Papellido").val();
+                        let segundoApellido = $("#Sapellido").val();
+                        let correo = $("#Correo").val();
+                        let numeroContacto = $("#Telefono").val();
+                        //llama función
+                        actualizarCliente(tipoId, idCliente, nombre, primerApellido, segundoApellido, correo, numeroContacto);
+
+                    });
+                } else {
+                    pasarPestañaCliente();
                 }
             } else {
-                console.log("El usuario" + idCliente + "no está resgistrado");
-                $("#register-error").removeClass("d-none");
+                console.log("El usuario :" + idCliente + ", no está resgistrado");
+                $("#btnEditUser").prop('disabled', true);
+                //podría ir un alert sobre que no está registrado.
             }
         }
     });
+}
+
+//Funciona validado.
+function pasarPestañaCliente() {
+
+    //remueve clases y habilita pestañas
+    //nav link.
+    $("#nav-cliente-tab").removeClass("active");
+    $('#nav-cliente-tab').prop('aria-selected', false);
+    $("#nav-cliente-tab").prop('disabled', true);
+    //panel (creo que se puede hacer en una sola.
+    $("#nav-cliente").removeClass("show");
+    $("#nav-cliente").removeClass("active");
+
+    //next tab
+    $("#nav-moto-tab").addClass("active");
+    $('#nav-moto-tab').prop('aria-selected', true);
+    $("#nav-moto-tab").prop('disabled', false);
+    //panel
+    $("#nav-moto").addClass("show");
+    $("#nav-moto").addClass("active");
 }
