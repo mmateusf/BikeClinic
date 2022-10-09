@@ -28,6 +28,16 @@ $(document).ready(function () {
         registrarEstado();
 
     });
+    $("#Placa").on('keyup', function (event) {
+        event.preventDefault();
+        if (indicadores === 'No apto') {
+            $("#flexRadioIndicadoresN").prop('disabled', false);
+            desIndicadores = $("#DescripcionInd").val();
+            $("#alertDesc-estado").removeClass("d-none");
+        } else {
+            desIndicadores = null;
+        }
+    });
 });
 
 //ok js, Validado
@@ -357,29 +367,33 @@ function mostrarMecanicos(listaMecanicos) {
 }
 
 //ZONA estado
-//Funciona, debería no dejar registrar con el mismo km
+//Funciona, Checkbox sin check funcionando.
+//Falta validación de 
+// debería no dejar registrar con el mismo km
+
 function registrarEstado() {
 
     let indicadores = document.querySelector('input[name=flexRadioIndicadores]:checked').value;
     let desIndicadores;
-    
-    if (indicadores === 'No apto') {
-        $("#DescripcionInd").prop('disabled', false);
-        desIndicadores = $("#DescripcionInd").val();
-        $("#alertDesc-estado").removeClass("d-none");
-    } else {
-        desIndicadores = null;
-    }
+
+//    if (indicadores === 'No apto') {
+//        $("#DescripcionInd").prop('disabled', false);
+//        desIndicadores = $("#DescripcionInd").val();
+//        $("#alertDesc-estado").removeClass("d-none");
+//    } else {
+//        desIndicadores = null;
+//    }
 
     let aceite = document.querySelector('input[name=flexRadioAceite]:checked').value;
     let nivelAceite = document.querySelector('input[name=flexRadioAceiteNivel]:checked').value;
     let liquidoFrenos = document.querySelector('input[name=flexRadioLFrenos]:checked').value;
     let liquidoEmbrague = document.querySelector('input[name=flexRadioLEmbrague]:checked').value;
     let liquidoRefrigerante = document.querySelector('input[name=flexRadioLRefrigerante]:checked').value;
-    let lucesAptas = document.querySelector('input[value=Farola]:checked').value;
-    lucesAptas += ", " + document.querySelector('input[value=Stop]:checked').value;
-    lucesAptas += ", " + document.querySelector('input[value=Direcionales]:checked').value;
-    lucesAptas += ", " + document.querySelector('input[value=Auxiliares]:checked').value;
+    
+    let lucesAptas = (document.querySelector('input[value=Farola]:checked') ? document.querySelector('input[value=Farola]:checked').value: null);
+    lucesAptas += (document.querySelector('input[value=Stop]:checked') ? ", " + document.querySelector('input[value=Stop]:checked').value: null);
+    lucesAptas += (document.querySelector('input[value=Direcionales]:checked') ? ", " + document.querySelector('input[value=Direcionales]:checked').value: null);
+    lucesAptas += (document.querySelector('input[value=Auxiliares]:checked') ? ", " + document.querySelector('input[value=Auxiliares]:checked').value: null);
 
     let espejos = document.querySelector('input[name=flexRadioEspejo]:checked').value;
     let claxon = document.querySelector('input[name=flexRadioClaxon]:checked').value;
@@ -433,7 +447,7 @@ function registrarEstado() {
             let parsedResult = JSON.parse(result);
             if (parsedResult !== false) {
                 obtenerIdEstado(kilometraje);
-                pasarPestañaMotivo();
+                pasarPestañaEstado();
 
                 console.log("Se registró correctamente el estado");
             } else {
@@ -465,7 +479,7 @@ function obtenerIdEstado(kilometraje) {
 }
 
 //Funciona
-function pasarPestañaMotivo() {
+function pasarPestañaEstado() {
 
     //remueve clases y habilita pestañas
     //nav link.
